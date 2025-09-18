@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Somaiya Voices - Student Welfare Section</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* Reset and base */
     * {
@@ -18,28 +19,25 @@
       line-height: 1.6;
     }
 
-    /* Container */
     .container {
       max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      margin: 0 auto;
+      padding: 1.5rem;
     }
 
-    /* Header & Navigation */
+    /* Header */
     .header {
       position: fixed;
       top: 0;
       width: 100%;
-      background: white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       z-index: 1000;
     }
     .nav {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       height: 4rem;
     }
     .nav-logo {
@@ -51,97 +49,56 @@
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
     }
     .nav-link {
-      position: relative;
       text-decoration: none;
-      color: #333333;
+      color: #333;
       font-weight: 600;
-      font-size: 1.125rem;
-      transition: color 0.3s ease;
+      position: relative;
     }
     .nav-link::after {
       content: '';
       position: absolute;
       width: 0;
       height: 2px;
-      bottom: -4px;
+      background: #D72631;
       left: 0;
-      background-color: #D72631;
-      transition: width 0.3s ease;
+      bottom: -5px;
+      transition: 0.3s;
     }
-    .nav-link:hover,
-    .nav-link:focus {
-      color: #D72631;
-      outline: none;
-    }
-    .nav-link:hover::after,
-    .nav-link:focus::after {
+    .nav-link:hover::after {
       width: 100%;
     }
 
-    /* Mobile menu button */
-    .mobile-menu-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: none;
-      color: #333333;
-    }
-    .menu-icon {
-      width: 1.75rem;
-      height: 1.75rem;
-    }
-
-    /* Mobile menu */
-    .mobile-menu {
-      background: white;
-      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    }
-    .mobile-nav-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 1.5rem;
-    }
-    .mobile-nav-links .nav-link {
-      font-size: 1.25rem;
-    }
-
-    /* Hero Section */
     .hero-section {
       position: relative;
       height: 18rem;
       background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80');
       background-size: cover;
       background-position: center;
-      margin-top: 4rem; /* header height */
+      margin-top: 4rem;
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background-color: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       color: white;
       text-align: center;
-      padding: 0 1rem;
     }
     .hero-title {
       font-size: 2.5rem;
       font-weight: 800;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
     }
     .hero-subtitle {
       margin-top: 0.5rem;
       font-size: 1.25rem;
     }
 
-    /* Section Styles */
     .section {
       padding: 4rem 0;
     }
@@ -149,105 +106,137 @@
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
+      text-align: center;
     }
     .section-text {
       font-size: 1.125rem;
       color: #555;
-    }
-    .team-member,
-    .mentor {
       text-align: center;
-      margin-bottom: 2rem;
+      max-width: 800px;
+      margin: auto;
     }
-    .team-photo,
-    .mentor-photo {
+
+    .team-section,
+    .newsletter-section,
+    .social-section {
+      text-align: center;
+    }
+
+    .team-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .team-member {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 250px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    .team-photo {
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      width: 150px;
-      height: 150px;
       object-fit: cover;
       margin-bottom: 1rem;
     }
-    .team-name,
-    .mentor-name {
-      font-weight: 600;
-      font-size: 1.25rem;
+    .team-name {
+      font-weight: 700;
     }
-    .team-position,
-    .mentor-position {
+    .team-position {
       color: #777;
+      font-size: 0.95rem;
     }
 
-    /* Footer and Connect Section */
-    .connect-section {
-      background-color: #D72631;
-      padding: 4rem 0;
-      color: white;
-      text-align: center;
-    }
-    .connect-buttons {
+    .newsletter-grid {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
       margin-top: 2rem;
     }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 2rem;
-      margin: 0.5rem;
+    .newsletter-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .newsletter-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .newsletter-links a {
+      margin-right: 1rem;
       text-decoration: none;
+      color: white;
+      background: #D72631;
+      padding: 0.5rem 1rem;
       border-radius: 5px;
-      font-size: 1.125rem;
+      font-size: 0.95rem;
     }
-    .btn-email {
-      background-color: #4CAF50;
-      color: white;
-    }
-    .btn-facebook {
-      background-color: #3b5998;
-      color: white;
-    }
-    .btn-twitter {
-      background-color: #1da1f2;
-      color: white;
+
+    .social-grid {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
     }
     .social-post img {
-      width: 100%;
-      height: auto;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
       border-radius: 10px;
     }
 
+    .connect-section {
+      background: #D72631;
+      color: white;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+    .btn {
+      display: inline-block;
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+    .btn-email {
+      background: #4CAF50;
+    }
+    .btn-facebook {
+      background: #3b5998;
+    }
+    .btn-twitter {
+      background: #1da1f2;
+    }
   </style>
 </head>
 <body>
 
   <!-- Navigation -->
   <header class="header">
-    <nav class="nav container" aria-label="Primary Navigation">
-      <a href="#home" class="nav-logo" aria-label="Somaiya Voices Home">Somaiya Voices</a>
+    <nav class="nav container">
+      <a href="#home" class="nav-logo">Somaiya Voices</a>
       <ul class="nav-links">
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#intro" class="nav-link">About</a></li>
         <li><a href="#team" class="nav-link">Team</a></li>
         <li><a href="#newsletters" class="nav-link">Newsletters</a></li>
-        <li><a href="#social" class="nav-link">Social Media</a></li>
+        <li><a href="#social" class="nav-link">Social</a></li>
         <li><a href="#connect" class="nav-link">Connect</a></li>
       </ul>
-      <button id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" class="mobile-menu-btn">
-        <svg class="menu-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </nav>
-    <div id="mobile-menu" class="mobile-menu hidden">
-      <ul class="mobile-nav-links">
-        <li><a href="#home" class="nav-link">Home</a></li>
-        <li><a href="#intro" class="nav-link">About</a></li>
-        <li><a href="#team" class="nav-link">Team</a></li>
-        <li><a href="#newsletters" class="nav-link">Newsletters</a></li>
-        <li><a href="#social" class="nav-link">Social Media</a></li>
-        <li><a href="#connect" class="nav-link">Connect</a></li>
-      </ul>
-    </div>
   </header>
 
-  <!-- Hero / Header with Team Photo -->
+  <!-- Hero -->
   <section id="home" class="hero-section">
     <div class="hero-overlay">
       <h1 class="hero-title">Team Voices</h1>
@@ -255,13 +244,74 @@
     </div>
   </section>
 
-  <!-- Basic Intro -->
-  <section id="intro" class="section intro-section container text-center">
+  <!-- About Section -->
+  <section id="intro" class="section">
     <h2 class="section-title">About Somaiya Voices</h2>
     <p class="section-text">
       Somaiya Voices is the official media body of Somaiya Vidyavihar University under the Office of Dean Student Welfare. We empower students to express creativity, share stories, and foster community engagement through authentic storytelling and media initiatives.
     </p>
   </section>
 
-  <!-- Main Content with Side Strip and Event Calendar -->
-  <section class="container main-content
+  <!-- Team Section -->
+  <section id="team" class="section team-section">
+    <h2 class="section-title">Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="team-photo" alt="Aaysha Khan">
+        <h4 class="team-name">Aaysha Khan</h4>
+        <p class="team-position">Chief - KJSSC</p>
+      </div>
+      <div class="team-member">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="team-photo" alt="Priyansh Gupta">
+        <h4 class="team-name">Priyansh Gupta</h4>
+        <p class="team-position">Co-Chief - SSBAS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section id="newsletters" class="section newsletter-section">
+    <h2 class="section-title">Newsletters</h2>
+    <div class="newsletter-grid">
+      <div class="newsletter-card">
+        <h4 class="newsletter-title">March Edition</h4>
+        <div class="newsletter-links">
+          <a href="#" target="_blank">View</a>
+          <a href="#" download>Download</a>
+        </div>
+      </div>
+      <div class="newsletter-card">
+        <h4 class="newsletter-title">July Edition</h4>
+        <div class="newsletter-links">
+          <a href="#" target="_blank">View</a>
+          <a href="#" download>Download</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Section -->
+  <section id="social" class="section social-section">
+    <h2 class="section-title">Our Social Media</h2>
+    <div class="social-grid">
+      <div class="social-post">
+        <img src="https://source.unsplash.com/random/200x200?sig=1" alt="Post 1" />
+      </div>
+      <div class="social-post">
+        <img src="https://source.unsplash.com/random/200x200?sig=2" alt="Post 2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Connect Section -->
+  <section id="connect" class="connect-section">
+    <h2 class="section-title">Connect With Us</h2>
+    <div class="connect-buttons">
+      <a href="mailto:voices@somaiya.edu" class="btn btn-email">Email</a>
+      <a href="https://facebook.com/somaiyavoices" class="btn btn-facebook" target="_blank">Facebook</a>
+      <a href="https://twitter.com/somaiyavoices" class="btn btn-twitter" target="_blank">Twitter</a>
+    </div>
+  </section>
+
+</body>
+</html>
