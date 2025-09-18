@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Somaiya Voices - Student Welfare Section</title>
+  <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* Reset and base */
@@ -19,25 +20,28 @@
       line-height: 1.6;
     }
 
+    /* Container */
     .container {
       max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
 
-    /* Header */
+    /* Header & Navigation */
     .header {
       position: fixed;
       top: 0;
       width: 100%;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
       z-index: 1000;
     }
     .nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       height: 4rem;
     }
     .nav-logo {
@@ -49,173 +53,373 @@
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
     }
     .nav-link {
-      text-decoration: none;
-      color: #333;
-      font-weight: 600;
       position: relative;
+      text-decoration: none;
+      color: #333333;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: color 0.3s ease;
     }
     .nav-link::after {
       content: '';
       position: absolute;
       width: 0;
       height: 2px;
-      background: #D72631;
+      bottom: -4px;
       left: 0;
-      bottom: -5px;
-      transition: 0.3s;
+      background-color: #D72631;
+      transition: width 0.3s ease;
     }
-    .nav-link:hover::after {
+    .nav-link:hover,
+    .nav-link:focus {
+      color: #D72631;
+      outline: none;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus::after {
       width: 100%;
     }
 
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+      color: #333333;
+    }
+    .menu-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+    .mobile-nav-links .nav-link {
+      font-size: 1.25rem;
+    }
+
+    /* Hero Section */
     .hero-section {
       position: relative;
       height: 18rem;
       background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80');
       background-size: cover;
       background-position: center;
-      margin-top: 4rem;
+      margin-top: 4rem; /* header height */
     }
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.5);
+      background-color: rgba(0,0,0,0.5);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
       color: white;
       text-align: center;
+      padding: 0 1rem;
     }
     .hero-title {
       font-size: 2.5rem;
       font-weight: 800;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
     }
     .hero-subtitle {
       margin-top: 0.5rem;
       font-size: 1.25rem;
     }
 
-    .section {
-      padding: 4rem 0;
+    /* Side Strip */
+    .side-strip {
+      width: 300px;
+      padding: 1rem;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-right: 2rem;
+      flex-shrink: 0;
     }
-    .section-title {
-      font-size: 2rem;
+    .side-strip-title {
+      font-size: 1.5rem;
       font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .mentor {
       margin-bottom: 1.5rem;
       text-align: center;
     }
-    .section-text {
-      font-size: 1.125rem;
-      color: #555;
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .team-section,
-    .newsletter-section,
-    .social-section {
-      text-align: center;
-    }
-
-    .team-grid {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .team-member {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 10px;
-      width: 250px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    }
-    .team-photo {
+    .mentor-photo {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
+      margin-bottom: 0.5rem;
+    }
+    .mentor-name {
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+    .mentor-position {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    .mentor-desc {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Main Section */
+    .main-section {
+      flex: 1;
+    }
+
+    /* Main content container with flex */
+    .main-content {
+      display: flex;
+      padding: 2rem 0 4rem;
+      gap: 2rem;
+    }
+
+    /* Events Section */
+    .events-section {
+      margin-bottom: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .section-subtitle {
+      font-size: 1.5rem;
+      font-weight: 700;
       margin-bottom: 1rem;
+    }
+    .events-list {
+      list-style: none;
+      color: #444;
+      font-weight: 600;
+    }
+    .events-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Team Section */
+    .team-section {
+      margin-bottom: 2rem;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+      gap: 1rem;
+    }
+    .team-member {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .team-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 0.5rem;
     }
     .team-name {
       font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.25rem;
     }
-    .team-position {
-      color: #777;
-      font-size: 0.95rem;
+    .team-position,
+    .team-dept {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.25rem;
     }
 
-    .newsletter-grid {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
+    /* Newsletters Section */
+    .newsletters-section {
+      margin-bottom: 2rem;
     }
-    .newsletter-card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      width: 280px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .newsletter-title {
-      font-weight: 600;
+    .filters {
       margin-bottom: 1rem;
-    }
-    .newsletter-links a {
-      margin-right: 1rem;
-      text-decoration: none;
-      color: white;
-      background: #D72631;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-size: 0.95rem;
-    }
-
-    .social-grid {
       display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
       justify-content: center;
-      margin-top: 2rem;
     }
-    .social-post img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
+    .filter-select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      min-width: 140px;
     }
-
-    .connect-section {
-      background: #D72631;
-      color: white;
-      text-align: center;
-      padding: 4rem 1rem;
+    .newsletter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 1rem;
+    }
+    .newsletter-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .newsletter-title {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .newsletter-links {
+      display: flex;
+      gap: 0.5rem;
     }
     .btn {
-      display: inline-block;
-      margin: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
       text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+    }
+    .btn-view {
+      background-color: #D72631;
       color: white;
-      font-weight: bold;
+    }
+    .btn-view:hover,
+    .btn-view:focus {
+      background-color: #b41d27;
+    }
+    .btn-download {
+      background-color: #555;
+      color: white;
+    }
+    .btn-download:hover,
+    .btn-download:focus {
+      background-color: #333;
+    }
+
+    /* Social Section */
+    .social-section {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+      gap: 1rem;
+      justify-items: center;
+    }
+    .social-post img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .social-post img:hover,
+    .social-post img:focus {
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Connect Section */
+    .connect-section {
+      background-color: #D72631;
+      padding: 3rem 1rem;
+      color: white;
+      text-align: center;
+    }
+    .connect-buttons {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
     .btn-email {
-      background: #4CAF50;
+      background-color: #fff;
+      color: #D72631;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-    .btn-facebook {
-      background: #3b5998;
+    .btn-email:hover,
+    .btn-email:focus {
+      background-color: #e6e6e6;
     }
+    .btn-facebook,
     .btn-twitter {
-      background: #1da1f2;
+      background-color: transparent;
+      border: 2px solid white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-facebook:hover,
+    .btn-facebook:focus {
+      background-color: white;
+      color: #D72631;
+      outline: none;
+    }
+    .btn-twitter:hover,
+    .btn-twitter:focus {
+      background-color: white;
+      color: #1DA1F2;
+      outline: none;
+    }
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      .main-content {
+        flex-direction: column;
+        padding: 1rem 0 2rem;
+      }
+      .side-strip {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -223,20 +427,35 @@
 
   <!-- Navigation -->
   <header class="header">
-    <nav class="nav container">
-      <a href="#home" class="nav-logo">Somaiya Voices</a>
+    <nav class="nav container" aria-label="Primary Navigation">
+      <a href="#home" class="nav-logo" aria-label="Somaiya Voices Home">Somaiya Voices</a>
       <ul class="nav-links">
         <li><a href="#home" class="nav-link">Home</a></li>
         <li><a href="#intro" class="nav-link">About</a></li>
         <li><a href="#team" class="nav-link">Team</a></li>
         <li><a href="#newsletters" class="nav-link">Newsletters</a></li>
-        <li><a href="#social" class="nav-link">Social</a></li>
+        <li><a href="#social" class="nav-link">Social Media</a></li>
         <li><a href="#connect" class="nav-link">Connect</a></li>
       </ul>
+      <button id="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false" class="mobile-menu-btn">
+        <svg class="menu-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </nav>
+    <div id="mobile-menu" class="mobile-menu hidden" style="display:none;">
+      <ul class="mobile-nav-links">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#intro" class="nav-link">About</a></li>
+        <li><a href="#team" class="nav-link">Team</a></li>
+        <li><a href="#newsletters" class="nav-link">Newsletters</a></li>
+        <li><a href="#social" class="nav-link">Social Media</a></li>
+        <li><a href="#connect" class="nav-link">Connect</a></li>
+      </ul>
+    </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero / Header with Team Photo -->
   <section id="home" class="hero-section">
     <div class="hero-overlay">
       <h1 class="hero-title">Team Voices</h1>
@@ -244,74 +463,203 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="intro" class="section">
+  <!-- Basic Intro -->
+  <section id="intro" class="section intro-section container text-center">
     <h2 class="section-title">About Somaiya Voices</h2>
     <p class="section-text">
-      Somaiya Voices is the official media body of Somaiya Vidyavihar University under the Office of Dean Student Welfare. We empower students to express creativity, share stories, and foster community engagement through authentic storytelling and media initiatives.
+      Somaiya Voices is the official media body of Somaiya Vidyavihar University under the Office of Dean Student Welfare. We focus on representing student voices, organizing events, publishing newsletters, and connecting through social media.
     </p>
   </section>
 
-  <!-- Team Section -->
-  <section id="team" class="section team-section">
-    <h2 class="section-title">Meet the Team</h2>
-    <div class="team-grid">
-      <div class="team-member">
-        <img src="https://randomuser.me/api/portraits/women/32.jpg" class="team-photo" alt="Aaysha Khan">
-        <h4 class="team-name">Aaysha Khan</h4>
-        <p class="team-position">Chief - KJSSC</p>
-      </div>
-      <div class="team-member">
-        <img src="https://randomuser.me/api/portraits/men/45.jpg" class="team-photo" alt="Priyansh Gupta">
-        <h4 class="team-name">Priyansh Gupta</h4>
-        <p class="team-position">Co-Chief - SSBAS</p>
-      </div>
-    </div>
-  </section>
+  <!-- Main Content: side strip + main -->
+  <div class="container main-content" style="margin-top: 2rem;">
 
-  <!-- Newsletter Section -->
-  <section id="newsletters" class="section newsletter-section">
-    <h2 class="section-title">Newsletters</h2>
-    <div class="newsletter-grid">
-      <div class="newsletter-card">
-        <h4 class="newsletter-title">March Edition</h4>
-        <div class="newsletter-links">
-          <a href="#" target="_blank">View</a>
-          <a href="#" download>Download</a>
-        </div>
-      </div>
-      <div class="newsletter-card">
-        <h4 class="newsletter-title">July Edition</h4>
-        <div class="newsletter-links">
-          <a href="#" target="_blank">View</a>
-          <a href="#" download>Download</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    <!-- Side Strip with Mentors -->
+    <aside class="side-strip" aria-label="Mentors">
+      <h3 class="side-strip-title">Our Mentors</h3>
 
-  <!-- Social Section -->
-  <section id="social" class="section social-section">
-    <h2 class="section-title">Our Social Media</h2>
-    <div class="social-grid">
-      <div class="social-post">
-        <img src="https://source.unsplash.com/random/200x200?sig=1" alt="Post 1" />
+      <div class="mentor">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Dr. Anjali Shah" class="mentor-photo" />
+        <h4 class="mentor-name">Dr. Anjali Shah</h4>
+        <p class="mentor-position">Dean, Student Welfare</p>
+        <p class="mentor-desc">
+          Dr. Shah supports and guides our team to create a vibrant student community.
+        </p>
       </div>
-      <div class="social-post">
-        <img src="https://source.unsplash.com/random/200x200?sig=2" alt="Post 2" />
+
+      <div class="mentor">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Mr. Rohan Mehta" class="mentor-photo" />
+        <h4 class="mentor-name">Mr. Rohan Mehta</h4>
+        <p class="mentor-position">Media Advisor</p>
+        <p class="mentor-desc">
+          Provides media strategy and support to enhance our outreach.
+        </p>
       </div>
-    </div>
-  </section>
+    </aside>
+
+    <!-- Main Section -->
+    <main class="main-section">
+
+      <!-- Events Section -->
+      <section id="events" class="events-section">
+        <h3 class="section-subtitle">Upcoming Events</h3>
+        <ul class="events-list" aria-live="polite">
+          <li>Annual Cultural Fest - Nov 15, 2025</li>
+          <li>Media Workshop - Dec 10, 2025</li>
+          <li>Newsletter Launch - Jan 5, 2026</li>
+        </ul>
+      </section>
+
+      <!-- Team Section -->
+      <section id="team" class="team-section">
+        <h3 class="section-subtitle">Meet the Team</h3>
+        <div class="team-grid" role="list">
+          <article class="team-member" role="listitem" tabindex="0">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priya Patel" class="team-photo" />
+            <h4 class="team-name">Priya Patel</h4>
+            <p class="team-position">Editor-in-Chief</p>
+            <p class="team-dept">Media and Communications</p>
+          </article>
+          <article class="team-member" role="listitem" tabindex="0">
+            <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="Arjun Singh" class="team-photo" />
+            <h4 class="team-name">Arjun Singh</h4>
+            <p class="team-position">Content Writer</p>
+            <p class="team-dept">English Department</p>
+          </article>
+          <article class="team-member" role="listitem" tabindex="0">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Sneha Desai" class="team-photo" />
+            <h4 class="team-name">Sneha Desai</h4>
+            <p class="team-position">Graphic Designer</p>
+            <p class="team-dept">Fine Arts</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Newsletters Section -->
+      <section id="newsletters" class="newsletters-section">
+        <h3 class="section-subtitle">Newsletters</h3>
+        <div class="filters" role="region" aria-label="Newsletter filters">
+          <select id="dept-filter" class="filter-select" aria-label="Filter newsletters by department">
+            <option value="all">All Departments</option>
+            <option value="media">Media and Communications</option>
+            <option value="english">English Department</option>
+            <option value="finearts">Fine Arts</option>
+          </select>
+          <select id="type-filter" class="filter-select" aria-label="Filter newsletters by type">
+            <option value="all">All Types</option>
+            <option value="monthly">Monthly</option>
+            <option value="event">Event</option>
+          </select>
+        </div>
+        <div id="newsletter-list" class="newsletter-grid" role="list" aria-live="polite" aria-atomic="true">
+          <article class="newsletter-card" role="listitem" data-department="media" data-type="monthly" tabindex="0">
+            <h4 class="newsletter-title">Voices Monthly - July 2025</h4>
+            <div class="newsletter-links">
+              <a href="#" class="btn btn-view" target="_blank" rel="noopener noreferrer">View</a>
+              <a href="#" class="btn btn-download" download>Download</a>
+            </div>
+          </article>
+          <article class="newsletter-card" role="listitem" data-department="english" data-type="event" tabindex="0">
+            <h4 class="newsletter-title">English Lit Workshop - Sep 2025</h4>
+            <div class="newsletter-links">
+              <a href="#" class="btn btn-view" target="_blank" rel="noopener noreferrer">View</a>
+              <a href="#" class="btn btn-download" download>Download</a>
+            </div>
+          </article>
+          <article class="newsletter-card" role="listitem" data-department="finearts" data-type="monthly" tabindex="0">
+            <h4 class="newsletter-title">Fine Arts Update - August 2025</h4>
+            <div class="newsletter-links">
+              <a href="#" class="btn btn-view" target="_blank" rel="noopener noreferrer">View</a>
+              <a href="#" class="btn btn-download" download>Download</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Social Media Section -->
+      <section id="social" class="social-section container">
+        <h3 class="section-subtitle">Social Media</h3>
+        <div class="social-grid" role="list">
+          <article class="social-post" role="listitem" tabindex="0">
+            <img src="https://source.unsplash.com/random/300x200?student" alt="Student event photo" />
+          </article>
+          <article class="social-post" role="listitem" tabindex="0">
+            <img src="https://source.unsplash.com/random/301x201?media" alt="Media workshop photo" />
+          </article>
+          <article class="social-post" role="listitem" tabindex="0">
+            <img src="https://source.unsplash.com/random/302x202?campus" alt="Campus event photo" />
+          </article>
+          <article class="social-post" role="listitem" tabindex="0">
+            <img src="https://source.unsplash.com/random/303x203?students" alt="Student gathering photo" />
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
 
   <!-- Connect Section -->
-  <section id="connect" class="connect-section">
-    <h2 class="section-title">Connect With Us</h2>
+  <section id="connect" class="connect-section" aria-label="Connect with Somaiya Voices">
+    <h3>Connect with Us</h3>
     <div class="connect-buttons">
-      <a href="mailto:voices@somaiya.edu" class="btn btn-email">Email</a>
-      <a href="https://facebook.com/somaiyavoices" class="btn btn-facebook" target="_blank">Facebook</a>
-      <a href="https://twitter.com/somaiyavoices" class="btn btn-twitter" target="_blank">Twitter</a>
+      <a href="mailto:voices@somaiya.edu" class="btn-email">Email Us</a>
+      <a href="https://facebook.com/somaiyavoices" target="_blank" rel="noopener noreferrer" class="btn-facebook" aria-label="Facebook">
+        <svg class="icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M22.675 0h-21.35C.6 0 0 .6 0 1.342v21.316C0 23.4.6 24 1.325 24H12.82v-9.294H9.692V11.41h3.127V8.797c0-3.1 1.893-4.788 4.658-4.788 1.325 0 2.466.099 2.797.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.297h-3.12V24h6.116c.73 0 1.324-.6 1.324-1.342V1.342C24 .6 23.4 0 22.675 0z"/>
+        </svg>
+      </a>
+      <a href="https://twitter.com/somaiyavoices" target="_blank" rel="noopener noreferrer" class="btn-twitter" aria-label="Twitter">
+        <svg class="icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724 9.865 9.865 0 01-3.127 1.196 4.916 4.916 0 00-8.38 4.482A13.945 13.945 0 011.671 3.149a4.916 4.916 0 001.523 6.573 4.903 4.903 0 01-2.228-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.085 4.919 4.919 0 004.59 3.417A9.867 9.867 0 010 19.54a13.94 13.94 0 007.548 2.209c9.056 0 14.009-7.496 14.009-13.986 0-.213-.005-.425-.014-.636A10.012 10.012 0 0024 4.557z"/>
+        </svg>
+      </a>
     </div>
   </section>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', !expanded);
+      if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+        mobileMenu.style.display = 'block';
+      } else {
+        mobileMenu.style.display = 'none';
+      }
+    });
+
+    // Newsletter filtering
+    const deptFilter = document.getElementById('dept-filter');
+    const typeFilter = document.getElementById('type-filter');
+    const newsletterList = document.getElementById('newsletter-list');
+
+    function filterNewsletters() {
+      const deptValue = deptFilter.value;
+      const typeValue = typeFilter.value;
+      const newsletters = newsletterList.querySelectorAll('.newsletter-card');
+
+      newsletters.forEach(nl => {
+        const dept = nl.getAttribute('data-department');
+        const type = nl.getAttribute('data-type');
+
+        const deptMatch = deptValue === 'all' || dept === deptValue;
+        const typeMatch = typeValue === 'all' || type === typeValue;
+
+        if (deptMatch && typeMatch) {
+          nl.style.display = 'flex';
+        } else {
+          nl.style.display = 'none';
+        }
+      });
+    }
+
+    deptFilter.addEventListener('change', filterNewsletters);
+    typeFilter.addEventListener('change', filterNewsletters);
+  </script>
 
 </body>
 </html>
