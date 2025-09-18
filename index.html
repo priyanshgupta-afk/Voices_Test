@@ -40,7 +40,7 @@
     </div>
   </header>
 
-  <!-- Hero / Header with Team Photo -->
+  <!-- Hero Section -->
   <section id="home" class="hero-section">
     <div class="hero-overlay">
       <h1 class="hero-title">Team Voices</h1>
@@ -48,7 +48,7 @@
     </div>
   </section>
 
-  <!-- Basic Intro -->
+  <!-- About Section -->
   <section id="intro" class="section intro-section container text-center">
     <h2 class="section-title">About Somaiya Voices</h2>
     <p class="section-text">
@@ -56,10 +56,10 @@
     </p>
   </section>
 
-  <!-- Main Content with Side Strip and Event Calendar -->
+  <!-- Main Content Section -->
   <section class="container main-content">
 
-    <!-- Side Strip -->
+    <!-- Side Strip (Mentors) -->
     <aside class="side-strip">
       <h3 class="side-strip-title">Our Mentors</h3>
       <div class="mentor">
@@ -79,7 +79,7 @@
     <!-- Main Section -->
     <main class="main-section">
 
-      <!-- Event Calendar -->
+      <!-- Upcoming Events -->
       <section id="events" class="section events-section">
         <h3 class="section-subtitle">Upcoming Events</h3>
         <ul class="events-list">
@@ -90,7 +90,7 @@
         </ul>
       </section>
 
-      <!-- Team Members -->
+      <!-- Meet the Team -->
       <section id="team" class="section team-section">
         <h3 class="section-subtitle">Meet the Team</h3>
         <div class="team-grid">
@@ -106,15 +106,12 @@
             <p class="team-position">Co-Chief - SSBAS</p>
             <p class="team-dept">BSc CS Hons - SY</p>
           </div>
-          <!-- Add more team members as needed -->
         </div>
       </section>
 
-      <!-- Newsletters with Filters -->
+      <!-- Newsletter Section -->
       <section id="newsletters" class="section newsletters-section">
         <h3 class="section-subtitle">Newsletters</h3>
-
-        <!-- Filters -->
         <div class="filters">
           <select id="yearFilter" class="filter-select">
             <option value="all">All Years</option>
@@ -138,9 +135,8 @@
             <option value="12">December</option>
           </select>
         </div>
-
-        <!-- Newsletter Cards -->
         <div id="newsletter-list" class="newsletter-grid">
+          <!-- Example Newsletter -->
           <article class="newsletter-card" data-year="2024" data-month="04">
             <h4 class="newsletter-title">Volume 1 – April 2024</h4>
             <div class="newsletter-links">
@@ -155,90 +151,11 @@
               <a href="newsletters/volume2-august2024.pdf" download class="btn btn-download">Download</a>
             </div>
           </article>
-          <!-- Add more newsletters -->
         </div>
       </section>
 
-      <!-- Social Media Section -->
+      <!-- Social Media Highlights -->
       <section id="social" class="section social-section">
         <h3 class="section-subtitle">Instagram Highlights</h3>
         <div class="social-grid">
-          <a href="https://www.instagram.com/p/CG0UU3Xh1xA/" target="_blank" rel="noopener" class="social-post">
-            <img src="https://via.placeholder.com/300x300.png?text=Instagram+Post+1" alt="Instagram Post 1" />
-          </a>
-          <a href="https://www.instagram.com/p/CG0UU3Xh1xB/" target="_blank" rel="noopener" class="social-post">
-            <img src="https://via.placeholder.com/300x300.png?text=Instagram+Post+2" alt="Instagram Post 2" />
-          </a>
-          <a href="https://www.instagram.com/p/CG0UU3Xh1xC/" target="_blank" rel="noopener" class="social-post">
-            <img src="https://via.placeholder.com/300x300.png?text=Instagram+Post+3" alt="Instagram Post 3" />
-          </a>
-          <a href="https://www.instagram.com/p/CG0UU3Xh1xD/" target="_blank" rel="noopener" class="social-post">
-            <img src="https://via.placeholder.com/300x300.png?text=Instagram+Post+4" alt="Instagram Post 4" />
-          </a>
-        </div>
-      </section>
-
-    </main>
-  </section>
-
-  <!-- Connect With Us Banner -->
-  <section id="connect" class="connect-section">
-    <div class="container text-center">
-      <h2 class="section-title text-white mb-6">Connect With Us</h2>
-      <p class="section-text text-white mb-8">
-        Have questions or want to get involved? Reach out via email or follow us on social media.
-      </p>
-      <div class="connect-buttons">
-        <a href="mailto:hello@somaiyavoices.org" class="btn btn-email">Email Us</a>
-        <a href="https://www.facebook.com/somaiyavoices" target="_blank" rel="noopener" aria-label="Facebook" class="btn btn-facebook" title="Facebook">
-          <svg class="icon" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.5 9.9v-7h-2v-3h2v-2c0-2 1-3 3-3h2v3h-2c-.5 0-1 .5-1 1v2h3l-1 3h-2v7A10 10 0 0022 12z"/></svg>
-        </a>
-        <a href="https://twitter.com/somaiyavoices" target="_blank" rel="noopener" aria-label="Twitter" class="btn btn-twitter" title="Twitter">
-          <svg class="icon" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14.86 4.48 4.48 0 001.98-2.48 9.14 9.14 0 01-2.88 1.1 4.52 4.52 0 00-7.7 4.12A12.8 12.8 0 013 4.89a4.52 4.52 0 001.4 6.04 4.48 4.48 0 01-2.05-.57v.06a4.52 4.52 0 003.63 4.43 4.52 4.52 0 01-2.04.08 4.52 4.52 0 004.22 3.14A9.05 9.05 0 012 19.54a12.8 12.8 0 006.92 2.03c8.3 0 12.85-6.88 12.85-12.85 0-.2 0-.42-.02-.63A9.22 9.22 0 0023 3z"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    // Mobile menu toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    mobileMenuBtn.addEventListener('click', () => {
-      const expanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true' || false;
-      mobileMenuBtn.setAttribute('aria-expanded', !expanded);
-      mobileMenu.classList.toggle('hidden');
-    });
-
-    // Newsletter filtering
-    const yearFilter = document.getElementById('yearFilter');
-    const monthFilter = document.getElementById('monthFilter');
-    const newsletterList = document.getElementById('newsletter-list');
-
-    function filterNewsletters() {
-      const year = yearFilter.value;
-      const month = monthFilter.value;
-      const cards = newsletterList.querySelectorAll('.newsletter-card');
-
-      cards.forEach(card => {
-        const cardYear = card.getAttribute('data-year');
-        const cardMonth = card.getAttribute('data-month');
-
-        const yearMatch = year === 'all' || cardYear === year;
-        const monthMatch = month === 'all' || cardMonth === month;
-
-        if (yearMatch && monthMatch) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    yearFilter.addEventListener('change', filterNewsletters);
-    monthFilter.addEventListener('change', filterNewsletters);
-  </script>
-
-</body>
-</html>
+          <a href="https://www.instagram.com/p/CG0UU3Xh1xA/" target="_
