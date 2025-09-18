@@ -1,12 +1,219 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Somaiya Voices - Student Welfare Section</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #333333;
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    /* Header & Navigation */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+      z-index: 1000;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #D72631;
+      text-decoration: none;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+    .nav-link {
+      position: relative;
+      text-decoration: none;
+      color: #333333;
+      font-weight: 600;
+      font-size: 1.125rem;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #D72631;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover,
+    .nav-link:focus {
+      color: #D72631;
+      outline: none;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus::after {
+      width: 100%;
+    }
+
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+      color: #333333;
+    }
+    .menu-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      background: white;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    }
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+    .mobile-nav-links .nav-link {
+      font-size: 1.25rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      height: 18rem;
+      background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      margin-top: 4rem; /* header height */
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+    .hero-subtitle {
+      margin-top: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 4rem 0;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .section-text {
+      font-size: 1.125rem;
+      color: #555;
+    }
+    .team-member,
+    .mentor {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .team-photo,
+    .mentor-photo {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+    .team-name,
+    .mentor-name {
+      font-weight: 600;
+      font-size: 1.25rem;
+    }
+    .team-position,
+    .mentor-position {
+      color: #777;
+    }
+
+    /* Footer and Connect Section */
+    .connect-section {
+      background-color: #D72631;
+      padding: 4rem 0;
+      color: white;
+      text-align: center;
+    }
+    .connect-buttons {
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      margin: 0.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1.125rem;
+    }
+    .btn-email {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-facebook {
+      background-color: #3b5998;
+      color: white;
+    }
+    .btn-twitter {
+      background-color: #1da1f2;
+      color: white;
+    }
+    .social-post img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+  </style>
 </head>
 <body>
 
@@ -40,7 +247,7 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero / Header with Team Photo -->
   <section id="home" class="hero-section">
     <div class="hero-overlay">
       <h1 class="hero-title">Team Voices</h1>
@@ -48,7 +255,7 @@
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- Basic Intro -->
   <section id="intro" class="section intro-section container text-center">
     <h2 class="section-title">About Somaiya Voices</h2>
     <p class="section-text">
@@ -56,106 +263,5 @@
     </p>
   </section>
 
-  <!-- Main Content Section -->
-  <section class="container main-content">
-
-    <!-- Side Strip (Mentors) -->
-    <aside class="side-strip">
-      <h3 class="side-strip-title">Our Mentors</h3>
-      <div class="mentor">
-        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Urmi Mam" class="mentor-photo" />
-        <h4 class="mentor-name">Urmi Mam</h4>
-        <p class="mentor-position">Dean, Student Welfare</p>
-        <p class="mentor-desc">Guiding and supporting the Somaiya Voices team with passion and dedication.</p>
-      </div>
-      <div class="mentor">
-        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Priyanka Mam" class="mentor-photo" />
-        <h4 class="mentor-name">Priyanka Mam</h4>
-        <p class="mentor-position">Student Welfare Coordinator</p>
-        <p class="mentor-desc">Encouraging student voices and facilitating creative expression.</p>
-      </div>
-    </aside>
-
-    <!-- Main Section -->
-    <main class="main-section">
-
-      <!-- Upcoming Events -->
-      <section id="events" class="section events-section">
-        <h3 class="section-subtitle">Upcoming Events</h3>
-        <ul class="events-list">
-          <li><strong>Oct 15, 2024:</strong> Storytelling Workshop</li>
-          <li><strong>Nov 5, 2024:</strong> Community Dialogue Session</li>
-          <li><strong>Dec 10, 2024:</strong> Annual Voices Gala</li>
-          <li><strong>Jan 20, 2025:</strong> Media Training Bootcamp</li>
-        </ul>
-      </section>
-
-      <!-- Meet the Team -->
-      <section id="team" class="section team-section">
-        <h3 class="section-subtitle">Meet the Team</h3>
-        <div class="team-grid">
-          <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Aaysha Khan" class="team-photo" />
-            <h4 class="team-name">Aaysha Khan</h4>
-            <p class="team-position">Chief - KJSSC</p>
-            <p class="team-dept">BSc Botany - TY</p>
-          </div>
-          <div class="team-member">
-            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Priyansh Gupta" class="team-photo" />
-            <h4 class="team-name">Priyansh Gupta</h4>
-            <p class="team-position">Co-Chief - SSBAS</p>
-            <p class="team-dept">BSc CS Hons - SY</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Newsletter Section -->
-      <section id="newsletters" class="section newsletters-section">
-        <h3 class="section-subtitle">Newsletters</h3>
-        <div class="filters">
-          <select id="yearFilter" class="filter-select">
-            <option value="all">All Years</option>
-            <option value="2025">2025</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-          </select>
-          <select id="monthFilter" class="filter-select">
-            <option value="all">All Months</option>
-            <option value="01">January</option>
-            <option value="02">February</option>
-            <option value="03">March</option>
-            <option value="04">April</option>
-            <option value="05">May</option>
-            <option value="06">June</option>
-            <option value="07">July</option>
-            <option value="08">August</option>
-            <option value="09">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
-          </select>
-        </div>
-        <div id="newsletter-list" class="newsletter-grid">
-          <!-- Example Newsletter -->
-          <article class="newsletter-card" data-year="2024" data-month="04">
-            <h4 class="newsletter-title">Volume 1 – April 2024</h4>
-            <div class="newsletter-links">
-              <a href="newsletters/volume1-april2024.pdf" target="_blank" rel="noopener" class="btn btn-view">View</a>
-              <a href="newsletters/volume1-april2024.pdf" download class="btn btn-download">Download</a>
-            </div>
-          </article>
-          <article class="newsletter-card" data-year="2024" data-month="08">
-            <h4 class="newsletter-title">Volume 2 – August 2024</h4>
-            <div class="newsletter-links">
-              <a href="newsletters/volume2-august2024.pdf" target="_blank" rel="noopener" class="btn btn-view">View</a>
-              <a href="newsletters/volume2-august2024.pdf" download class="btn btn-download">Download</a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- Social Media Highlights -->
-      <section id="social" class="section social-section">
-        <h3 class="section-subtitle">Instagram Highlights</h3>
-        <div class="social-grid">
-          <a href="https://www.instagram.com/p/CG0UU3Xh1xA/" target="_
+  <!-- Main Content with Side Strip and Event Calendar -->
+  <section class="container main-content
