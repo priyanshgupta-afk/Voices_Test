@@ -8,16 +8,438 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .newsletter-card { transition: all 0.3s ease; opacity: 1; }
-        .newsletter-card.hidden { opacity: 0; transform: scale(0.8); pointer-events: none; }
-        .team-photo { border-radius: 50%; width: 150px; height: 150px; object-fit: cover; }
+        
+        * {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif !important; 
+            background-color: #fafafa;
+        }
+        
+        .gradient-bg { 
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%); 
+        }
+        
+        .card-hover { 
+            transition: all 0.4s ease; 
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .card-hover:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12); 
+            border-color: rgba(0,0,0,0.1);
+        }
+        
+        .newsletter-card { 
+            transition: all 0.4s ease; 
+            opacity: 1; 
+        }
+        .newsletter-card.hidden { 
+            opacity: 0; 
+            transform: scale(0.95); 
+            pointer-events: none; 
+        }
+        
+        /* Professional color scheme */
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #3b82f6;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-gray: #f8fafc;
+            --medium-gray: #64748b;
+        }
+        
+        /* Hero section with full video background */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Full screen video styling */
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        /* Enhanced text shadow for better readability */
+        .hero-section h1, 
+        .hero-section h2, 
+        .hero-section p {
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.8);
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Professional section spacing */
+        .section-padding {
+            padding: 6rem 0;
+        }
+        
+        /* Professional headings */
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .section-subheading {
+            font-size: 1.125rem;
+            color: var(--medium-gray);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        
+        /* Professional cards */
+        .professional-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .professional-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            transform: translateY(-4px);
+        }
+        
+        /* Professional buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--dark-color);
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 2px solid rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Professional team cards */
+        .team-card-professional {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card-professional:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Enhanced dots */
+        .carousel-dots span {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255,255,255,0.3);
+        }
+        
+        .carousel-dots span:hover {
+            transform: scale(1.3);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.5);
+        }
+        
+        /* Professional gradients */
+        .gradient-professional {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .gradient-blue {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+        
+        /* Enhanced content sections */
+        .content-section {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+        }
+        
+        /* Professional newsletter cards */
+        .newsletter-professional {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .newsletter-professional:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            border-color: rgba(0,0,0,0.08);
+        }
+
+        .newsletter-professional:hover .newsletter-gradient {
+            transform: scale(1.05);
+        }
+
+        .newsletter-professional .newsletter-gradient {
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-professional .newsletter-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .newsletter-professional:hover .newsletter-gradient::before {
+            transform: translateX(100%);
+        }
+
+        /* Newsletter card animations */
+        .newsletter-card.hidden {
+            opacity: 0 !important;
+            transform: scale(0.9) translateY(20px) !important;
+            pointer-events: none;
+            display: none !important;
+        }
+
+        .newsletter-card {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block;
+        }
+
+        /* Button improvements */
+        .newsletter-professional .btn-primary,
+        .newsletter-professional .btn-secondary {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-professional .btn-primary:hover,
+        .newsletter-professional .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Filter button improvements */
+        .filter-btn-professional {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn-professional::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .filter-btn-professional.active::after,
+        .filter-btn-professional:hover::after {
+            width: 100%;
+        }
+
+        /* Search section improvements */
+        #newsletter-search {
+            transition: all 0.3s ease;
+        }
+
+        #newsletter-search:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: #3b82f6;
+        }
+
+        /* Results count styling */
+        #results-count {
+            font-weight: 500;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* No results message styling */
+        #no-results-message {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading animation for cards */
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .newsletter-card.slide-in {
+            animation: cardSlideIn 0.6s ease forwards;
+        }        /* Dean section professional styling */
+        .dean-section {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+        }
+        
+        .dean-card-professional {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        /* Enhanced typography */
+        .text-professional {
+            color: var(--dark-color);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        .text-professional-light {
+            color: var(--medium-gray);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        /* Professional icons */
+        .icon-professional {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 80vh;
+            }
+            
+            .section-heading {
+                font-size: 2rem;
+            }
+            
+            .section-padding {
+                padding: 4rem 0;
+            }
+        }
+        
+        /* Enhanced animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        /* Professional filters */
+        .filter-professional {
+            background: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .filter-btn-professional {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        .filter-btn-professional.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+        
+        .filter-btn-professional:not(.active):hover {
+            background: #f1f5f9;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
+    <!-- Top Bar (Quick Links) -->
     <div class="bg-gray-100 border-b border-gray-200 text-xs">
         <div class="max-w-7xl mx-auto flex justify-between items-center px-4 py-2">
             <div class="flex space-x-2">
@@ -38,6 +460,7 @@
             <img src="https://www.somaiya.edu/assets/university/images/somaiya-trust-logo.svg" alt="Somaiya Trust" class="h-6">
         </div>
     </div>
+    <!-- Main Navigation -->
     <nav class="bg-white shadow sticky top-0 z-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
             <div class="flex items-center space-x-4">
@@ -63,35 +486,52 @@
             </div>
         </div>
     </nav>
-    <section class="relative bg-white overflow-hidden border-b border-gray-200" id="hero">
-        <div class="max-w-7xl mx-auto px-4 py-16 flex flex-col items-center text-center">
-            <div class="flex flex-col md:flex-row items-center w-full">
-                <div class="flex-1">
-                    <h2 class="text-3xl md:text-4xl font-light text-gray-800 mb-2">Empower Yourself through</h2>
-                    <h1 class="text-4xl md:text-5xl font-bold text-[#800000] mb-4" style="text-shadow: 1px 2px 0 #e5e5e5;">Earn-While-Learn Scheme</h1>
-                    <p class="text-lg text-gray-700 mb-2">Needy students at SVU can now work part-time in their Institute/University</p>
-                    <p class="text-xl font-medium text-gray-800 mb-6">Gain Skills and Financial Freedom!</p>
-                    <a href="#" class="inline-block bg-orange-400 hover:bg-orange-500 text-white font-semibold px-8 py-3 rounded transition">Apply Now!</a>
+    <!-- Hero Section -->
+    <section class="relative bg-white overflow-hidden border-b border-gray-200 hero-section">
+        <!-- Full Screen Video Background -->
+        <div class="absolute inset-0 w-full h-full">
+            <video 
+                class="w-full h-full object-cover" 
+                autoplay 
+                muted 
+                loop 
+                playsinline
+            >
+                <source src="Traditional Day At My College🥰 _ Somaiya Vidyavihar University _ KJSCE (1).mp4" type="video/mp4">
+                <!-- Fallback content -->
+                <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <i class="fas fa-play-circle text-6xl text-gray-400"></i>
                 </div>
-                <div class="flex-1 hidden md:block">
-                    <svg width="320" height="220" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
-                        <rect x="0" y="0" width="320" height="220" fill="#800000" fill-opacity="0.08"/>
-                        <rect x="40" y="40" width="240" height="20" fill="#800000" fill-opacity="0.25"/>
-                        <rect x="40" y="80" width="180" height="20" fill="#800000" fill-opacity="0.15"/>
-                        <rect x="40" y="120" width="120" height="20" fill="#800000" fill-opacity="0.10"/>
-                        <rect x="40" y="160" width="60" height="20" fill="#800000" fill-opacity="0.07"/>
-                    </svg>
+            </video>
+            <!-- Overlay for text readability -->
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        </div>
+        
+        <!-- Content over video -->
+        <div class="relative z-10 max-w-7xl mx-auto px-4 py-16 flex flex-col items-center text-center min-h-screen">
+            <div class="flex flex-col md:flex-row items-center w-full h-full">
+                <div class="flex-1 text-white">
+                    <h2 class="text-3xl md:text-4xl font-light mb-2">Empower Yourself through</h2>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg">Earn-While-Learn Scheme</h1>
+                    <p class="text-lg mb-2 drop-shadow">Needy students at SVU can now work part-time in their Institute/University</p>
+                    <p class="text-xl font-medium mb-6 drop-shadow">Gain Skills and Financial Freedom!</p>
+                    <a href="#" class="inline-block bg-orange-400 hover:bg-orange-500 text-white font-semibold px-8 py-3 rounded transition shadow-lg">Apply Now!</a>
                 </div>
             </div>
-            <div class="flex justify-center mt-8 space-x-2">
-                <span class="w-3 h-3 rounded-full bg-[#800000] inline-block"></span>
-                <span class="w-3 h-3 rounded-full bg-gray-400 inline-block"></span>
-                <span class="w-3 h-3 rounded-full bg-gray-400 inline-block"></span>
-                <span class="w-3 h-3 rounded-full bg-gray-400 inline-block"></span>
+            <!-- Dots for carousel effect -->
+            <div class="flex justify-center mt-8 space-x-2 carousel-dots">
+                <span class="w-3 h-3 rounded-full bg-white inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-white bg-opacity-60 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-white bg-opacity-60 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-white bg-opacity-60 inline-block"></span>
             </div>
         </div>
+        
+        <!-- Side Buttons -->
         <a href="#" class="fixed right-0 top-1/3 bg-blue-900 text-white px-4 py-2 rounded-l font-semibold shadow-lg z-50 hover:bg-blue-800 transition">Apply Now</a>
         <a href="#" class="fixed right-0 top-1/2 bg-orange-700 text-white px-4 py-2 rounded-l font-semibold shadow-lg z-50 hover:bg-orange-600 transition" style="margin-top: 2.5rem;">Enquire Now</a>
+        
+        <!-- WhatsApp and logo bottom right -->
         <div class="fixed right-4 bottom-4 flex flex-col items-end space-y-2 z-50">
             <a href="#" class="bg-green-500 rounded-full p-3 shadow-lg hover:bg-green-600 transition">
                 <i class="fab fa-whatsapp text-white text-2xl"></i>
@@ -100,147 +540,571 @@
         </div>
     </section>
 
-    <section id="about" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">About Somaiya Voices</h2>
-            <p class="text-xl text-gray-600">
-                Somaiya Voices is the official media body of Somaiya Vidyavihar University under the Office of Dean Student Welfare. We empower students to express creativity, share stories, and foster community engagement through authentic storytelling and media initiatives.
-            </p>
+    <!-- Stats Section - Add this new section below the hero -->
+    <section class="bg-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-blue-50 rounded-xl p-8 text-center shadow-sm">
+                    <div class="text-3xl font-bold text-indigo-600 mb-2">180+</div>
+                    <div class="text-base text-gray-700 font-medium">Total Publications</div>
+                </div>
+                <div class="bg-emerald-50 rounded-xl p-8 text-center shadow-sm">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">15</div>
+                    <div class="text-base text-gray-700 font-medium">Years of Publishing</div>
+                </div>
+                <div class="bg-purple-50 rounded-xl p-8 text-center shadow-sm">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">5000+</div>
+                    <div class="text-base text-gray-700 font-medium">Stories Covered</div>
+                </div>
+                <div class="bg-orange-50 rounded-xl p-8 text-center shadow-sm">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">25K+</div>
+                    <div class="text-base text-gray-700 font-medium">Monthly Readers</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="team" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Dean of Student Welfare Section -->
+    <section class="section-padding dean-section">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Team</h2>
-                <p class="text-xl text-gray-600">Meet the passionate individuals behind Somaiya Voices</p>
+                <h2 class="section-heading">Message from Dean of Student Welfare</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-[#800000] to-[#b71c2b] mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="dean-card-professional max-w-5xl mx-auto">
+                <div class="md:flex">
+                    <!-- Dean's Photo -->
+                    <div class="md:w-2/5 relative">
+                        <div class="h-full bg-gradient-to-br from-[#800000] to-[#b71c2b] flex items-center justify-center p-8">
+                            <div class="text-center">
+                                <div class="w-40 h-40 bg-white rounded-full mx-auto mb-6 shadow-xl overflow-hidden ring-4 ring-white ring-opacity-30">
+                                    <img src="https://via.placeholder.com/300x300/cccccc/666666?text=Dean+Photo" alt="Dr. Urmi Thakkar" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-2xl font-bold text-white mb-2">Dr. Urmi Thakkar</h3>
+                                <p class="text-lg text-white opacity-95 font-medium">Dean of Student Welfare</p>
+                                <p class="text-sm text-white opacity-85 mt-2">Somaiya Vidyavihar University</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dean's Message -->
+                    <div class="md:w-3/5 p-8">
+                        <div class="relative">
+                            <i class="fas fa-quote-left text-3xl text-[#800000] opacity-15 absolute -top-3 -left-3"></i>
+                            <div class="relative z-10">
+                                <p class="text-professional text-base leading-relaxed mb-6">
+                                    At Somaiya Vidyavihar University, student welfare forms the cornerstone of our educational philosophy. Our unwavering commitment transcends academic excellence, encompassing the holistic development and well-being of every student.
+                                </p>
+                                <p class="text-professional text-base leading-relaxed mb-6">
+                                    The <span class="font-semibold text-[#800000] bg-red-50 px-2 py-1 rounded">Earn-While-Learn Scheme</span> exemplifies our dedication to ensuring that financial barriers never impede educational aspirations. This transformative initiative empowers students to acquire valuable professional experience while advancing their academic journey.
+                                </p>
+                                <div class="flex items-start mt-6 bg-gray-50 p-4 rounded-lg">
+                                    <div class="w-1 h-16 bg-gradient-to-b from-[#800000] to-[#b71c2b] rounded-full mr-4 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="text-professional-light italic text-base font-medium">"Our mission is to cultivate an environment where every student can flourish, innovate, and emerge as tomorrow's changemakers."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="fas fa-quote-right text-3xl text-[#800000] opacity-15 absolute -bottom-3 -right-3"></i>
+                        </div>
+                        
+                        <!-- Contact Information -->
+                        <div class="mt-8 pt-6 border-t border-gray-100">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <a href="mailto:dean.studentwelfare@somaiya.edu" class="flex items-center text-[#800000] hover:text-[#b71c2b] transition-all duration-300 bg-red-50 p-3 rounded-lg hover:bg-red-100">
+                                    <i class="fas fa-envelope mr-3 text-sm"></i>
+                                    <span class="text-sm font-medium">dean.studentwelfare@somaiya.edu</span>
+                                </a>
+                                <a href="tel:+912267728000" class="flex items-center text-[#800000] hover:text-[#b71c2b] transition-all duration-300 bg-red-50 p-3 rounded-lg hover:bg-red-100">
+                                    <i class="fas fa-phone mr-3 text-sm"></i>
+                                    <span class="text-sm font-medium">+91 22 6772 8000</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Initiatives -->
+            <div class="mt-20 grid md:grid-cols-3 gap-8">
+                <div class="professional-card p-8 text-center">
+                    <div class="icon-professional bg-gradient-to-br from-blue-500 to-indigo-600 text-white mx-auto">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-gray-800">Academic Excellence</h4>
+                    <p class="text-professional-light text-sm leading-relaxed">Comprehensive academic support, mentorship programs, and personalized guidance for academic success.</p>
+                </div>
+                
+                <div class="professional-card p-8 text-center">
+                    <div class="icon-professional bg-gradient-to-br from-emerald-500 to-teal-600 text-white mx-auto">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-gray-800">Wellness & Support</h4>
+                    <p class="text-professional-light text-sm leading-relaxed">Mental health support, counseling services, and comprehensive wellness initiatives for student well-being.</p>
+                </div>
+                
+                <div class="professional-card p-8 text-center">
+                    <div class="icon-professional bg-gradient-to-br from-purple-500 to-pink-600 text-white mx-auto">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-4 text-gray-800">Community Building</h4>
+                    <p class="text-professional-light text-sm leading-relaxed">Fostering inclusive communities through cultural events, student organizations, and collaborative initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coordinator Section -->
+    <section class="py-12 bg-gradient-to-br from-purple-50 to-indigo-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Program Coordinator</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-3xl mx-auto">
+                <div class="md:flex">
+                    <!-- Coordinator's Photo -->
+                    <div class="md:w-1/3 relative">
+                        <div class="h-full bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center p-4">
+                            <div class="text-center">
+                                <div class="w-24 h-24 bg-white rounded-full mx-auto mb-3 shadow-lg overflow-hidden ring-2 ring-white ring-opacity-30">
+                                    <img src="https://via.placeholder.com/200x200/cccccc/666666?text=Coordinator+Photo" alt="Ms. Priyanka Sharma" class="w-full h-full object-cover">
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-1">Ms. Priyanka Sharma</h3>
+                                <p class="text-xs text-white opacity-90 font-medium">Program Coordinator</p>
+                                <p class="text-xs text-white opacity-80 mt-1">Somaiya Voices Initiative</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coordinator's Message -->
+                    <div class="md:w-2/3 p-5">
+                        <div class="relative">
+                            <i class="fas fa-quote-left text-lg text-purple-600 opacity-20 absolute -top-1 -left-1"></i>
+                            <div class="relative z-10">
+                                <p class="text-professional text-xs leading-relaxed mb-3">
+                                    As the Program Coordinator for Somaiya Voices, I work alongside our talented student editorial team in bringing authentic campus stories to life. Our newsletter connects diverse experiences within our university community.
+                                </p>
+                                <p class="text-professional text-xs leading-relaxed mb-3">
+                                    Through collaborative storytelling, we ensure every voice finds its platform and contributes to our collective narrative of growth and community spirit.
+                                </p>
+                                <div class="flex items-start mt-3 bg-purple-50 p-2 rounded">
+                                    <div class="w-0.5 h-8 bg-gradient-to-b from-purple-600 to-indigo-600 rounded-full mr-2 flex-shrink-0"></div>
+                                    <div>
+                                        <p class="text-professional-light italic text-xs font-medium">"Together, we amplify voices that shape our university's story."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="fas fa-quote-right text-lg text-purple-600 opacity-20 absolute -bottom-1 -right-1"></i>
+                        </div>
+                        
+                        <!-- Contact Information -->
+                        <div class="mt-4 pt-3 border-t border-gray-100">
+                            <div class="grid grid-cols-1 gap-2">
+                                <a href="mailto:priyanka.coordinator@somaiya.edu" class="flex items-center text-purple-600 hover:text-purple-800 transition-all duration-300 bg-purple-50 p-2 rounded text-xs hover:bg-purple-100">
+                                    <i class="fas fa-envelope mr-2 text-xs"></i>
+                                    <span class="font-medium">priyanka.coordinator@somaiya.edu</span>
+                                </a>
+                                <a href="tel:+912267728001" class="flex items-center text-purple-600 hover:text-purple-800 transition-all duration-300 bg-purple-50 p-2 rounded text-xs hover:bg-purple-100">
+                                    <i class="fas fa-phone mr-2 text-xs"></i>
+                                    <span class="font-medium">+91 22 6772 8001</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Coordination Areas -->
+            <div class="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <i class="fas fa-edit text-white text-sm"></i>
+                    </div>
+                    <h4 class="text-sm font-semibold mb-2 text-gray-800">Editorial Guidance</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Mentoring editors and ensuring quality standards.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <i class="fas fa-calendar-check text-white text-sm"></i>
+                    </div>
+                    <h4 class="text-sm font-semibold mb-2 text-gray-800">Publication Planning</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Coordinating schedules and content calendar.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <i class="fas fa-users-cog text-white text-sm"></i>
+                    </div>
+                    <h4 class="text-sm font-semibold mb-2 text-gray-800">Team Development</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Training student journalists and designers.</p>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4 text-center shadow-md hover:shadow-lg transition-all duration-300">
+                    <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-lg mx-auto mb-3 flex items-center justify-center">
+                        <i class="fas fa-network-wired text-white text-sm"></i>
+                    </div>
+                    <h4 class="text-sm font-semibold mb-2 text-gray-800">Community Outreach</h4>
+                    <p class="text-gray-600 text-xs leading-relaxed">Building student-administration connections.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section-padding bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="section-heading">Our Team</h2>
+                <p class="section-subheading max-w-3xl mx-auto">Meet the dedicated professionals and passionate students who drive the vision and mission of Somaiya Voices forward.</p>
             </div>
 
-            <div class="mb-16">
-                <h3 class="text-2xl font-semibold text-center mb-8 text-indigo-600">Leadership</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-xl card-hover text-center">
-                        <div class="w-20 h-20 bg-indigo-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <!-- Core Leadership -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold text-center mb-12 text-var(--primary-color)">Executive Leadership</h3>
+                <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                    <div class="professional-card p-10 text-center">
+                        <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
                             <i class="fas fa-crown text-white text-2xl"></i>
                         </div>
-                        <h4 class="text-xl font-semibold mb-2">Chief Editor</h4>
-                        <p class="text-gray-600 mb-4">Leading the editorial vision and strategic direction</p>
-                        <div class="flex justify-center space-x-3">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-800"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-indigo-600 hover:text-indigo-800"><i class="fab fa-twitter"></i></a>
+                        <h4 class="text-2xl font-semibold mb-3 text-gray-800">Aaysha Khan</h4>
+                        <p class="text-indigo-600 font-semibold mb-3 text-lg">Chief Editor</p>
+                        <p class="text-professional-light text-sm leading-relaxed mb-6">Spearheading editorial excellence and strategic vision for organizational growth and content innovation.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center hover:bg-indigo-200 transition-colors"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center hover:bg-indigo-200 transition-colors"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
-                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-xl card-hover text-center">
-                        <div class="w-20 h-20 bg-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div class="professional-card p-10 text-center">
+                        <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
                             <i class="fas fa-star text-white text-2xl"></i>
                         </div>
-                        <h4 class="text-xl font-semibold mb-2">Co-Chief Editor</h4>
-                        <p class="text-gray-600 mb-4">Supporting editorial operations and content quality</p>
-                        <div class="flex justify-center space-x-3">
-                            <a href="#" class="text-purple-600 hover:text-purple-800"><i class="fab fa-linkedin"></i></a>
-                            <a href="#" class="text-purple-600 hover:text-purple-800"><i class="fab fa-twitter"></i></a>
+                        <h4 class="text-2xl font-semibold mb-3 text-gray-800">Priyansh Gupta</h4>
+                        <p class="text-purple-600 font-semibold mb-3 text-lg">Co-Chief Editor</p>
+                        <p class="text-professional-light text-sm leading-relaxed mb-6">Ensuring editorial excellence and maintaining high standards of content quality across all platforms.</p>
+                        <div class="flex justify-center space-x-4">
+                            <a href="#" class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center hover:bg-purple-200 transition-colors"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="w-10 h-10 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center hover:bg-purple-200 transition-colors"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="mb-16">
-                <h3 class="text-2xl font-semibold text-center mb-8 text-indigo-600">Department Heads</h3>
+            <!-- Department Heads -->
+            <div class="mb-20">
+                <h3 class="text-2xl font-semibold text-center mb-12 text-var(--primary-color)">Department Leadership</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-                    <div class="bg-white border border-gray-200 p-6 rounded-xl card-hover text-center shadow-sm">
-                        <div class="w-16 h-16 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i class="fas fa-pen-fancy text-white text-xl"></i>
+                    <div class="team-card-professional text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-md">
+                            <i class="fas fa-pen-fancy text-white text-lg"></i>
                         </div>
-                        <h4 class="font-semibold mb-2">Content & PR Head</h4>
-                        <p class="text-sm text-gray-600">Managing content strategy and public relations</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Shlok Chauhan</h4>
+                        <p class="text-blue-600 font-medium text-sm mb-3">Content & PR Head</p>
+                        <p class="text-xs text-professional-light leading-relaxed">Strategic content planning and public relations management</p>
                     </div>
-                    <div class="bg-white border border-gray-200 p-6 rounded-xl card-hover text-center shadow-sm">
-                        <div class="w-16 h-16 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i class="fas fa-cogs text-white text-xl"></i>
+                    <div class="team-card-professional text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-md">
+                            <i class="fas fa-cogs text-white text-lg"></i>
                         </div>
-                        <h4 class="font-semibold mb-2">Operations Head</h4>
-                        <p class="text-sm text-gray-600">Overseeing daily operations and logistics</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Nirek Ganguly</h4>
+                        <p class="text-emerald-600 font-medium text-sm mb-3">Operations Head</p>
+                        <p class="text-xs text-professional-light leading-relaxed">Operational excellence and logistics coordination</p>
                     </div>
-                    <div class="bg-white border border-gray-200 p-6 rounded-xl card-hover text-center shadow-sm">
-                        <div class="w-16 h-16 bg-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i class="fas fa-hashtag text-white text-xl"></i>
+                    <div class="team-card-professional text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-md">
+                            <i class="fas fa-palette text-white text-lg"></i>
                         </div>
-                        <h4 class="font-semibold mb-2">Social Media Head</h4>
-                        <p class="text-sm text-gray-600">Leading digital presence and engagement</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Ishika Jain</h4>
+                        <p class="text-amber-600 font-medium text-sm mb-3">Graphics Head</p>
+                        <p class="text-xs text-professional-light leading-relaxed">Visual design strategy and creative direction</p>
                     </div>
-                    <div class="bg-white border border-gray-200 p-6 rounded-xl card-hover text-center shadow-sm">
-                        <div class="w-16 h-16 bg-red-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i class="fas fa-camera text-white text-xl"></i>
+                    <div class="team-card-professional text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-md">
+                            <i class="fas fa-hashtag text-white text-lg"></i>
                         </div>
-                        <h4 class="font-semibold mb-2">Photo/Video Head</h4>
-                        <p class="text-sm text-gray-600">Managing visual content and multimedia</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Priyansh Gupta</h4>
+                        <p class="text-pink-600 font-medium text-sm mb-3">Social Media Head</p>
+                        <p class="text-xs text-professional-light leading-relaxed">Digital presence and audience engagement</p>
                     </div>
-                    <div class="bg-white border border-gray-200 p-6 rounded-xl card-hover text-center shadow-sm">
-                        <div class="w-16 h-16 bg-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <i class="fas fa-palette text-white text-xl"></i>
+                    <div class="team-card-professional text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl mx-auto mb-4 flex items-center justify-center shadow-md">
+                            <i class="fas fa-camera text-white text-lg"></i>
                         </div>
-                        <h4 class="font-semibold mb-2">Graphics Head</h4>
-                        <p class="text-sm text-gray-600">Creating visual designs and layouts</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Kaustubh Rewankar</h4>
+                        <p class="text-red-600 font-medium text-sm mb-3">Photo & Video Head</p>
+                        <p class="text-xs text-professional-light leading-relaxed">Visual storytelling and multimedia production</p>
                     </div>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-2xl font-semibold text-center mb-8 text-indigo-600">Members</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-indigo-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
+            <!-- Team Members - Condensed Professional View -->
+            <div class="grid lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
+                <!-- Content Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-blue-600 border-b border-blue-100 pb-3">Content Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Content Writer</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Priyanshi Kar</p>
+                                <p class="text-xs text-blue-600">Member</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-indigo-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
+                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Designer</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Christina Dcunha</p>
+                                <p class="text-xs text-blue-600">Member</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-indigo-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
+                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Photographer</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Sweekriti Maheshwari</p>
+                                <p class="text-xs text-blue-600">Member</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-indigo-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-user text-white"></i>
+                        <div class="flex items-center p-3 bg-blue-100 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Social Media</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Aiza Mistry</p>
+                                <p class="text-xs text-blue-500">Crew</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-2xl font-semibold text-center mb-8 text-indigo-600">Crew</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-gray-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-users text-white"></i>
+
+                <!-- PR Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-emerald-600 border-b border-emerald-100 pb-3">PR Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                            <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Volunteer</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Rutwa Nimkar</p>
+                                <p class="text-xs text-emerald-600">Member</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-gray-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-users text-white"></i>
+                        <div class="flex items-center p-3 bg-emerald-50 rounded-lg">
+                            <div class="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Intern</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Prachi Mishra</p>
+                                <p class="text-xs text-emerald-600">Member</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-gray-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-users text-white"></i>
+                        <div class="flex items-center p-3 bg-emerald-100 rounded-lg">
+                            <div class="w-8 h-8 bg-emerald-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Assistant</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Saachi Chunekar</p>
+                                <p class="text-xs text-emerald-500">Crew</p>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 p-4 rounded-lg text-center">
-                            <div class="w-12 h-12 bg-gray-400 rounded-full mx-auto mb-2 flex items-center justify-center">
-                                <i class="fas fa-users text-white"></i>
+                    </div>
+                </div>
+
+                <!-- Graphics Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-amber-600 border-b border-amber-100 pb-3">Graphics Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-amber-50 rounded-lg">
+                            <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
                             </div>
-                            <p class="font-medium">Contributor</p>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Viplav Bhanarkar</p>
+                                <p class="text-xs text-amber-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-amber-50 rounded-lg">
+                            <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Viraj Ravani</p>
+                                <p class="text-xs text-amber-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-amber-50 rounded-lg">
+                            <div class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Gunjan Israni</p>
+                                <p class="text-xs text-amber-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-amber-100 rounded-lg">
+                            <div class="w-8 h-8 bg-amber-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Khushi Brahmbhatt</p>
+                                <p class="text-xs text-amber-500">Crew</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo & Video Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-red-600 border-b border-red-100 pb-3">Photo & Video Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Sharv Desai</p>
+                                <p class="text-xs text-red-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Nitin Choudhary</p>
+                                <p class="text-xs text-red-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-red-100 rounded-lg">
+                            <div class="w-8 h-8 bg-red-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Afifa Waghu</p>
+                                <p class="text-xs text-red-500">Crew</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-red-100 rounded-lg">
+                            <div class="w-8 h-8 bg-red-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Deven Patel</p>
+                                <p class="text-xs text-red-500">Crew</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-red-100 rounded-lg">
+                            <div class="w-8 h-8 bg-red-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Krit Shah</p>
+                                <p class="text-xs text-red-500">Crew</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-pink-600 border-b border-pink-100 pb-3">Social Media Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-pink-50 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Megh Bame</p>
+                                <p class="text-xs text-pink-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-pink-50 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Vidisha Tayade</p>
+                                <p class="text-xs text-pink-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-pink-50 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Vaishnavi Dhotre</p>
+                                <p class="text-xs text-pink-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-pink-100 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Ishaan Pawar</p>
+                                <p class="text-xs text-pink-500">Crew</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-pink-100 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Prateeti Jain</p>
+                                <p class="text-xs text-pink-500">Crew</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-pink-100 rounded-lg">
+                            <div class="w-8 h-8 bg-pink-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Diksha More</p>
+                                <p class="text-xs text-pink-500">Crew</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operations Team -->
+                <div class="professional-card p-6">
+                    <h3 class="text-lg font-semibold text-center mb-6 text-purple-600 border-b border-purple-100 pb-3">Operations Team</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                            <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Araf Khan</p>
+                                <p class="text-xs text-purple-600">Member</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-purple-100 rounded-lg">
+                            <div class="w-8 h-8 bg-purple-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Shravani Mohide</p>
+                                <p class="text-xs text-purple-500">Crew</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-purple-100 rounded-lg">
+                            <div class="w-8 h-8 bg-purple-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-user text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm text-gray-800">Laxman Choudhary</p>
+                                <p class="text-xs text-purple-500">Crew</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -248,250 +1112,667 @@
         </div>
     </section>
 
-    <section id="content" class="py-20 bg-gray-50">
+    <!-- Content Section -->
+    <section id="content" class="section-padding content-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Content</h2>
-                <p class="text-xl text-gray-600">Follow us across all platforms for the latest updates</p>
+            <div class="text-center mb-20">
+                <h2 class="section-heading">Our Content Ecosystem</h2>
+                <p class="section-subheading max-w-3xl mx-auto">Experience our multi-platform content strategy delivering engaging stories, updates, and insights across digital channels.</p>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 p-6 text-white">
-                        <div class="flex items-center">
-                            <i class="fab fa-instagram text-3xl mr-4"></i>
+            <div class="grid lg:grid-cols-3 gap-10">
+                <!-- Instagram Reels -->
+                <div class="professional-card overflow-hidden">
+                    <div class="bg-gradient-to-br from-purple-500 to-pink-600 p-8 text-white">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fab fa-instagram text-2xl"></i>
+                            </div>
                             <div>
                                 <h3 class="text-xl font-semibold">Instagram Reels</h3>
-                                <p class="opacity-90">Quick campus highlights</p>
+                                <p class="opacity-90 text-sm">Dynamic campus storytelling</p>
                             </div>
                         </div>
+                        <div class="text-sm opacity-90 mb-2">Latest Content</div>
+                        <div class="text-2xl font-bold">2.4K+ Views</div>
                     </div>
-                    <div class="p-6">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-4 text-center">
-                                <i class="fas fa-play-circle text-purple-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Campus Events</p>
+                    <div class="p-8">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center hover:shadow-md transition-all">
+                                <i class="fas fa-play-circle text-purple-500 text-2xl mb-3"></i>
+                                <p class="text-sm font-medium text-gray-800">Campus Events</p>
+                                <p class="text-xs text-gray-600 mt-1">12 Videos</p>
                             </div>
-                            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-4 text-center">
-                                <i class="fas fa-play-circle text-purple-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Student Stories</p>
-                            </div>
-                            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-4 text-center">
-                                <i class="fas fa-play-circle text-purple-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Behind Scenes</p>
-                            </div>
-                            <div class="bg-gradient-to-br from-purple-100 to-pink-100 rounded-lg p-4 text-center">
-                                <i class="fas fa-play-circle text-purple-500 text-2xl mb-2"></i>
-                                <p class="text-sm font-medium">Quick Updates</p>
+                            <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 text-center hover:shadow-md transition-all">
+                                <i class="fas fa-microphone text-purple-500 text-2xl mb-3"></i>
+                                <p class="text-sm font-medium text-gray-800">Student Stories</p>
+                                <p class="text-xs text-gray-600 mt-1">8 Videos</p>
                             </div>
                         </div>
-                        <button class="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg hover:opacity-90 transition duration-300">View All Reels</button>
+                        <button class="btn-primary w-full">Explore Reels</button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-red-600 p-6 text-white">
-                        <div class="flex items-center">
-                            <i class="fab fa-youtube text-3xl mr-4"></i>
+                <!-- YouTube Videos -->
+                <div class="professional-card overflow-hidden">
+                    <div class="bg-gradient-to-br from-red-500 to-red-600 p-8 text-white">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fab fa-youtube text-2xl"></i>
+                            </div>
                             <div>
                                 <h3 class="text-xl font-semibold">YouTube Channel</h3>
-                                <p class="opacity-90">In-depth documentaries</p>
+                                <p class="opacity-90 text-sm">In-depth documentaries</p>
                             </div>
                         </div>
+                        <div class="text-sm opacity-90 mb-2">Subscribers</div>
+                        <div class="text-2xl font-bold">1.2K+</div>
                     </div>
-                    <div class="p-6">
-                        <div class="space-y-4">
-                            <div class="flex items-center p-3 bg-red-50 rounded-lg">
-                                <i class="fas fa-play text-red-600 mr-3"></i>
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <div class="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
                                 <div>
-                                    <p class="font-medium text-sm">Annual Fest Highlights</p>
+                                    <p class="font-medium text-sm text-gray-800">Annual Fest 2024</p>
                                     <p class="text-xs text-gray-600">15:30 • 2.3K views</p>
                                 </div>
                             </div>
-                            <div class="flex items-center p-3 bg-red-50 rounded-lg">
-                                <i class="fas fa-play text-red-600 mr-3"></i>
+                            <div class="flex items-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors">
+                                <div class="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
                                 <div>
-                                    <p class="font-medium text-sm">Alumni Success Stories</p>
+                                    <p class="font-medium text-sm text-gray-800">Alumni Success</p>
                                     <p class="text-xs text-gray-600">22:15 • 1.8K views</p>
                                 </div>
                             </div>
-                            <div class="flex items-center p-3 bg-red-50 rounded-lg">
-                                <i class="fas fa-play text-red-600 mr-3"></i>
-                                <div>
-                                    <p class="font-medium text-sm">Campus Tour 2024</p>
-                                    <p class="text-xs text-gray-600">12:45 • 3.1K views</p>
-                                </div>
-                            </div>
                         </div>
-                        <button class="w-full mt-6 bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300">Subscribe Now</button>
+                        <button class="btn-secondary w-full">Subscribe Channel</button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div class="bg-blue-600 p-6 text-white">
-                        <div class="flex items-center">
-                            <i class="fab fa-facebook text-3xl mr-4"></i>
+                <!-- Facebook Videos -->
+                <div class="professional-card overflow-hidden">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-8 text-white">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <i class="fab fa-facebook text-2xl"></i>
+                            </div>
                             <div>
-                                <h3 class="text-xl font-semibold">Facebook Page</h3>
-                                <p class="opacity-90">Community discussions</p>
+                                <h3 class="text-xl font-semibold">Facebook Live</h3>
+                                <p class="opacity-90 text-sm">Community engagement</p>
                             </div>
                         </div>
+                        <div class="text-sm opacity-90 mb-2">Page Followers</div>
+                        <div class="text-2xl font-bold">3.1K+</div>
                     </div>
-                    <div class="p-6">
-                        <div class="space-y-4">
-                            <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                <i class="fas fa-video text-blue-600 mr-3"></i>
+                    <div class="p-8">
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-video text-white"></i>
+                                </div>
                                 <div>
-                                    <p class="font-medium text-sm">Live Q&A Session</p>
+                                    <p class="font-medium text-sm text-gray-800">Live Q&A Session</p>
                                     <p class="text-xs text-gray-600">45:20 • 856 views</p>
                                 </div>
                             </div>
-                            <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                <i class="fas fa-video text-blue-600 mr-3"></i>
-                                <div>
-                                    <p class="font-medium text-sm">Workshop Highlights</p>
-                                    <p class="text-xs text-gray-600">18:30 • 1.2K views</p>
+                            <div class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-video text-white"></i>
                                 </div>
-                            </div>
-                            <div class="flex items-center p-3 bg-blue-50 rounded-lg">
-                                <i class="fas fa-video text-blue-600 mr-3"></i>
                                 <div>
-                                    <p class="font-medium text-sm">Student Interviews</p>
+                                    <p class="font-medium text-sm text-gray-800">Workshop Series</p>
                                     <p class="text-xs text-gray-600">25:15 • 967 views</p>
                                 </div>
                             </div>
                         </div>
-                        <button class="w-full mt-6 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300">Follow Page</button>
+                        <button class="btn-secondary w-full">Follow Page</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="newsletters" class="py-20 bg-white">
+    <!-- Newsletter Archive Section -->
+    <section id="newsletters" class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Newsletter Archive</h2>
-                <p class="text-xl text-gray-600">Browse our monthly publications by year</p>
+            <div class="text-center mb-20">
+                <h2 class="section-heading">Newsletter Archive</h2>
+                <p class="section-subheading max-w-3xl mx-auto">Explore our comprehensive collection of monthly publications documenting the university's journey, achievements, and community highlights spanning over a decade.</p>
             </div>
 
-            <div class="flex justify-center mb-12">
-                <div class="bg-gray-100 p-2 rounded-lg">
-                    <button onclick="filterNewsletter('all')" class="filter-btn px-6 py-2 rounded-md font-medium transition duration-300 bg-indigo-600 text-white">All Years</button>
-                    <button onclick="filterNewsletter('2024')" class="filter-btn px-6 py-2 rounded-md font-medium transition duration-300 text-gray-700 hover:bg-white">2024</button>
-                    <button onclick="filterNewsletter('2023')" class="filter-btn px-6 py-2 rounded-md font-medium transition duration-300 text-gray-700 hover:bg-white">2023</button>
-                    <button onclick="filterNewsletter('2022')" class="filter-btn px-6 py-2 rounded-md font-medium transition duration-300 text-gray-700 hover:bg-white">2022</button>
+            <!-- Enhanced Filter Controls -->
+            <div class="flex justify-center mb-16">
+                <div class="filter-professional">
+                    <button onclick="filterNewsletter('all')" class="filter-btn-professional active">All Publications</button>
+                    <button onclick="filterNewsletter('2024')" class="filter-btn-professional">2024</button>
+                    <button onclick="filterNewsletter('2023')" class="filter-btn-professional">2023</button>
+                    <button onclick="filterNewsletter('2022')" class="filter-btn-professional">2022</button>
+                    <button onclick="filterNewsletter('2021')" class="filter-btn-professional">2021</button>
+                    <button onclick="filterNewsletter('2020')" class="filter-btn-professional">2020</button>
+                    <button onclick="filterNewsletter('2019')" class="filter-btn-professional">2019</button>
+                    <button onclick="filterNewsletter('2018')" class="filter-btn-professional">2018</button>
+                    <button onclick="filterNewsletter('2015-2017')" class="filter-btn-professional">2015-2017</button>
+                    <button onclick="filterNewsletter('2010-2014')" class="filter-btn-professional">2010-2014</button>
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="newsletter-grid">
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2024">
-                    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">December 2024</h3>
-                        <p class="text-sm opacity-90">Year-end celebrations and achievements</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 3, Issue 12</span>
-                            <button class="text-indigo-600 hover:text-indigo-800 font-medium">Read Now</button>
+            <!-- Statistics Overview -->
+            <div class="grid md:grid-cols-4 gap-6 mb-16">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-indigo-600 mb-2">180+</div>
+                    <div class="text-sm text-gray-600">Total Publications</div>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">15</div>
+                    <div class="text-sm text-gray-600">Years of Publishing</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">5000+</div>
+                    <div class="text-sm text-gray-600">Stories Covered</div>
+                </div>
+                <div class="bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-orange-600 mb-2">25K+</div>
+                    <div class="text-sm text-gray-600">Monthly Readers</div>
+                </div>
+            </div>
+
+            <!-- Newsletter Grid with Pagination -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="newsletter-grid">
+                <!-- 2024 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2024">
+                    <div class="newsletter-gradient bg-gradient-to-br from-indigo-500 to-purple-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2024</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Year-end celebrations, achievements, and future vision</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 15, Issue 12</span>
+                            <span class="text-xs text-gray-500">24 Pages</span>
+                        </div>
+                        <button class="btn-primary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2024">
-                    <div class="bg-gradient-to-br from-green-500 to-teal-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">November 2024</h3>
-                        <p class="text-sm opacity-90">Cultural fest and academic excellence</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 3, Issue 11</span>
-                            <button class="text-green-600 hover:text-green-800 font-medium">Read Now</button>
+                <div class="newsletter-professional newsletter-card" data-year="2024">
+                    <div class="newsletter-gradient bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">November 2024</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Cultural festival highlights and academic excellence awards</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 15, Issue 11</span>
+                            <span class="text-xs text-gray-500">28 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2024">
-                    <div class="bg-gradient-to-br from-orange-500 to-red-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">October 2024</h3>
-                        <p class="text-sm opacity-90">Sports championships and new initiatives</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 3, Issue 10</span>
-                            <button class="text-orange-600 hover:text-orange-800 font-medium">Read Now</button>
+                <div class="newsletter-professional newsletter-card" data-year="2024">
+                    <div class="newsletter-gradient bg-gradient-to-br from-orange-500 to-red-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">October 2024</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Sports championships and innovative research initiatives</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 15, Issue 10</span>
+                            <span class="text-xs text-gray-500">32 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2024">
-                    <div class="bg-gradient-to-br from-pink-500 to-rose-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">September 2024</h3>
-                        <p class="text-sm opacity-90">New semester welcome and orientation</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 3, Issue 9</span>
-                            <button class="text-pink-600 hover:text-pink-800 font-medium">Read Now</button>
+                <div class="newsletter-professional newsletter-card" data-year="2024">
+                    <div class="newsletter-gradient bg-gradient-to-br from-pink-500 to-rose-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">September 2024</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">New semester welcome and orientation week coverage</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 15, Issue 9</span>
+                            <span class="text-xs text-gray-500">20 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2023">
+                <!-- 2023 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2023">
                     <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">December 2023</h3>
-                        <p class="text-sm opacity-90">Annual review and winter celebrations</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 2, Issue 12</span>
-                            <button class="text-blue-600 hover:text-blue-800 font-medium">Read Now</button>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2023</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Annual review and winter celebration memories</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 14, Issue 12</span>
+                            <span class="text-xs text-gray-500">26 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2023">
+                <div class="newsletter-professional newsletter-card" data-year="2023">
                     <div class="bg-gradient-to-br from-purple-500 to-pink-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">November 2023</h3>
-                        <p class="text-sm opacity-90">Research symposium highlights</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 2, Issue 11</span>
-                            <button class="text-purple-600 hover:text-purple-800 font-medium">Read Now</button>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">June 2023</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Research symposium and academic collaboration highlights</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 14, Issue 6</span>
+                            <span class="text-xs text-gray-500">30 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2022">
-                    <div class="bg-gradient-to-br from-teal-500 to-green-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">December 2022</h3>
-                        <p class="text-sm opacity-90">Foundation year achievements</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 1, Issue 12</span>
-                            <button class="text-teal-600 hover:text-teal-800 font-medium">Read Now</button>
+                <!-- 2022 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2022">
+                    <div class="bg-gradient-to-br from-teal-500 to-emerald-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2022</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">COVID recovery and campus life restoration</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 13, Issue 12</span>
+                            <span class="text-xs text-gray-500">18 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
                     </div>
                 </div>
 
-                <div class="newsletter-card bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm card-hover" data-year="2022">
+                <div class="newsletter-professional newsletter-card" data-year="2022">
+                    <div class="bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">March 2022</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Digital transformation and online learning achievements</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 13, Issue 3</span>
+                            <span class="text-xs text-gray-500">22 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2021 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2021">
+                    <div class="bg-gradient-to-br from-red-500 to-pink-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2021</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Pandemic resilience and community support initiatives</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 12, Issue 12</span>
+                            <span class="text-xs text-gray-500">16 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2021">
+                    <div class="bg-gradient-to-br from-green-500 to-teal-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">June 2021</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Virtual graduation and digital excellence awards</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 12, Issue 6</span>
+                            <span class="text-xs text-gray-500">20 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2020 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2020">
+                    <div class="bg-gradient-to-br from-gray-600 to-gray-800 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2020</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Year of challenges and digital innovation</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 11, Issue 12</span>
+                            <span class="text-xs text-gray-500">24 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2020">
+                    <div class="bg-gradient-to-br from-indigo-600 to-purple-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">March 2020</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Pre-pandemic campus life and achievements</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 11, Issue 3</span>
+                            <span class="text-xs text-gray-500">28 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2019 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2019">
                     <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-6 text-white">
-                        <h3 class="text-lg font-semibold mb-2">November 2022</h3>
-                        <p class="text-sm opacity-90">Launch issue - Welcome to Somaiya Voices</p>
-                    </div>
-                    <div class="p-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-600">Vol. 1, Issue 11</span>
-                            <button class="text-yellow-600 hover:text-yellow-800 font-medium">Read Now</button>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2019</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
                         </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Golden jubilee celebrations and milestone achievements</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 10, Issue 12</span>
+                            <span class="text-xs text-gray-500">36 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2019">
+                    <div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">June 2019</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Summer programs and international collaborations</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 10, Issue 6</span>
+                            <span class="text-xs text-gray-500">24 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2018 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2018">
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2018</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Innovation hub launch and startup incubation</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 9, Issue 12</span>
+                            <span class="text-xs text-gray-500">30 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2018">
+                    <div class="bg-gradient-to-br from-emerald-600 to-teal-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">March 2018</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Sustainability initiatives and green campus projects</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 9, Issue 3</span>
+                            <span class="text-xs text-gray-500">22 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2020 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2020">
+                    <div class="bg-gradient-to-br from-indigo-500 to-blue-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2020</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Pandemic resilience and virtual learning success</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 11, Issue 12</span>
+                            <span class="text-xs text-gray-500">20 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2020">
+                    <div class="bg-gradient-to-br from-purple-500 to-indigo-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">June 2020</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Digital transformation and online examination innovations</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 11, Issue 6</span>
+                            <span class="text-xs text-gray-500">18 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2019 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2019">
+                    <div class="bg-gradient-to-br from-emerald-500 to-green-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">December 2019</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Annual achievements and infrastructure expansion</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 10, Issue 12</span>
+                            <span class="text-xs text-gray-500">26 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2018 Newsletters -->
+                <div class="newsletter-professional newsletter-card" data-year="2018">
+                    <div class="bg-gradient-to-br from-orange-500 to-amber-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">October 2018</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Research breakthroughs and international partnerships</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 9, Issue 10</span>
+                            <span class="text-xs text-gray-500">22 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2018">
+                    <div class="bg-gradient-to-br from-pink-500 to-red-600 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">April 2018</h3>
+                            <i class="fas fa-file-alt text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Student innovation showcase and startup initiatives</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 9, Issue 4</span>
+                            <span class="text-xs text-gray-500">28 Pages</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Read Publication</button>
+                    </div>
+                </div>
+
+                <!-- 2015-2017 Era -->
+                <div class="newsletter-professional newsletter-card" data-year="2015-2017">
+                   
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">2017 Highlights</h3>
+                            <i class="fas fa-archive text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Infrastructure expansion and academic excellence</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 6-8 Collection</span>
+                            <span class="text-xs text-gray-500">Multiple Issues</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Browse Collection</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2015-2017">
+                    <div class="bg-gradient-to-br from-teal-600 to-blue-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">2016 Highlights</h3>
+                            <i class="fas fa-archive text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Sports achievements and cultural milestones</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 7 Collection</span>
+                            <span class="text-xs text-gray-500">12 Issues</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Browse Collection</button>
+                    </div>
+                </div>
+
+                <!-- 2010-2014 Era -->
+                <div class="newsletter-professional newsletter-card" data-year="2010-2014">
+                    <div class="bg-gradient-to-br from-amber-600 to-red-700 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">Legacy Archives</h3>
+                            <i class="fas fa-scroll text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">Foundation years and early achievements 2010-2014</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Vol. 1-5 Collection</span>
+                            <span class="text-xs text-gray-500">Historical Archive</span>
+                        </div>
+                        <button class="btn-secondary w-full text-sm">Explore Archives</button>
+                    </div>
+                </div>
+
+                <div class="newsletter-professional newsletter-card" data-year="2010-2014">
+                    <div class="bg-gradient-to-br from-gray-700 to-gray-900 p-6 text-white">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-lg font-semibold">2010-2012</h3>
+                            <i class="fas fa-history text-xl opacity-80"></i>
+                        </div>
+                        <p class="text-sm opacity-90 leading-relaxed">The beginning - First publications and campus growth</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">Inaugural Issues</span>
+                            <span class="text-xs text-gray-500">Historical</span>
+                        </div>
+                        <button class="btn-primary w-full text-sm">View History</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-16">
+                <button onclick="loadMoreNewsletters()" class="btn-secondary px-8 py-3" id="load-more-btn">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Load More Publications
+                </button>
+            </div>
+
+            <!-- Archive Search -->
+            <div class="mt-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Search Our Archives</h3>
+                    <p class="text-gray-600 mb-6">Looking for a specific publication or topic? Search through our extensive archive.</p>
+                    <div class="max-w-2xl mx-auto">
+                        <div class="flex gap-4">
+                            <input 
+                                type="text" 
+                                id="newsletter-search"
+                                placeholder="Search by year, topic, or keyword..." 
+                                class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                            >
+                            <button id="newsletter-search-btn" class="btn-primary px-8 hover:shadow-lg transition-all">
+                                <i class="fas fa-search mr-2"></i>
+                                Search
+                            </button>
+                        </div>
+                        <div class="mt-4">
+                            <p id="results-count" class="text-sm text-gray-500">Showing all publications</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                        <i class="fas fa-calendar-alt text-2xl text-blue-600 mb-3"></i>
+                        <h4 class="font-semibold text-gray-800 mb-2">Browse by Year</h4>
+                        <p class="text-sm text-gray-600">Filter publications by specific years</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-tags text-2xl text-green-600 mb-3"></i>
+                        <h4 class="font-semibold text-gray-800 mb-2">Topic Categories</h4>
+                        <p class="text-sm text-gray-600">Find articles by subject or theme</p>
+                    </div>
+                    <div>
+                        <i class="fas fa-download text-2xl text-purple-600 mb-3"></i>
+                        <h4 class="font-semibold text-gray-800 mb-2">Download PDFs</h4>
+                        <p class="text-sm text-gray-600">Access complete digital copies</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Connect Section -->
     <section id="connect" class="py-20 bg-gray-100 border-t border-gray-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl font-bold text-[#800000] mb-4">Connect With Us</h2>
@@ -519,9 +1800,11 @@
         </div>
     </section>
 
-    <footer class="bg-[#b71c2b] pt-12 pb-0 text-white">
+    <!-- Footer -->
+    <footer class="bg-[#b71c2b] pt-12 pb-0 text-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-5 gap-8 pb-8 border-b border-[#b71c2b]">
+                <!-- STUDENT HELP -->
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm">Student Help</h4>
                     <ul class="space-y-2 text-sm">
@@ -534,6 +1817,7 @@
                         <li><a href="#" class="hover:underline">Notices</a></li>
                     </ul>
                 </div>
+                <!-- QUICK LINKS -->
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm">Quick Links</h4>
                     <ul class="space-y-2 text-sm">
@@ -546,6 +1830,7 @@
                         <li><a href="#" class="hover:underline">UGC e-Samadhan Portal</a></li>
                     </ul>
                 </div>
+                <!-- EXPLORE -->
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm">Explore</h4>
                     <ul class="space-y-2 text-sm">
@@ -562,13 +1847,14 @@
                         <li><a href="#" class="hover:underline">Mandatory Disclosure</a></li>
                     </ul>
                     <div class="flex space-x-3 mt-4">
-                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-x-twitter"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="text-white hover:text-gray-300"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-700 hover:text-[#b71c2b]"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-700 hover:text-[#b71c2b]"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="text-gray-700 hover:text-[#b71c2b]"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-700 hover:text-[#b71c2b]"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-gray-700 hover:text-[#b71c2b]"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
+                <!-- GET IN TOUCH -->
                 <div>
                     <h4 class="font-bold mb-4 uppercase text-sm">Get In Touch</h4>
                     <ul class="space-y-2 text-sm">
@@ -581,11 +1867,12 @@
                         <li><a href="#" class="hover:underline">COVID-19 Updates</a></li>
                     </ul>
                 </div>
+                <!-- ACTION BUTTONS -->
                 <div class="flex flex-col space-y-3 justify-center items-end">
-                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition text-gray-700">Apply</button>
-                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition text-gray-700">Enquiry</button>
-                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition text-gray-700">Careers</button>
-                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition text-gray-700">Contact</button>
+                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition">Apply</button>
+                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition">Enquiry</button>
+                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition">Careers</button>
+                    <button class="border border-gray-700 px-6 py-2 rounded hover:bg-[#b71c2b] hover:text-white transition">Contact</button>
                 </div>
             </div>
             <div class="flex justify-between items-center px-4 py-4 bg-[#a71b27] mt-8">
@@ -603,44 +1890,255 @@
     </footer>
 
     <script>
-        // Newsletter filtering functionality
+        // Enhanced newsletter filtering functionality
         function filterNewsletter(year) {
             const cards = document.querySelectorAll('.newsletter-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+            const buttons = document.querySelectorAll('.filter-btn-professional');
             
             // Update button styles
             buttons.forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
-                btn.classList.add('text-gray-700', 'hover:bg-white');
+                btn.classList.remove('active');
             });
             
-            // Find the button that was clicked and update its style
-            const clickedButton = document.querySelector(`.filter-btn[onclick="filterNewsletter('${year}')"]`);
+            // Find and activate the clicked button
+            const clickedButton = Array.from(buttons).find(btn => 
+                btn.textContent.includes(year === 'all' ? 'All Publications' : year)
+            );
             if (clickedButton) {
-                clickedButton.classList.add('bg-indigo-600', 'text-white');
-                clickedButton.classList.remove('text-gray-700', 'hover:bg-white');
+                clickedButton.classList.add('active');
             }
             
-            // Filter cards
+            // Filter cards with smooth animation
             cards.forEach(card => {
-                if (year === 'all' || card.dataset.year === year) {
+                const cardYear = card.dataset.year;
+                const shouldShow = year === 'all' || cardYear === year;
+                
+                if (shouldShow) {
+                    // Show card
+                    card.style.transition = 'all 0.4s ease';
+                    card.style.transform = 'scale(0.95)';
+                    card.style.opacity = '0';
                     card.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        card.style.transform = 'scale(1)';
+                        card.style.opacity = '1';
+                    }, 100);
                 } else {
-                    card.classList.add('hidden');
+                    // Hide card
+                    card.style.transition = 'all 0.3s ease';
+                    card.style.transform = 'scale(0.95)';
+                    card.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        card.classList.add('hidden');
+                        card.style.display = 'none';
+                    }, 300);
                 }
             });
+            
+            // Update visible count
+            setTimeout(() => {
+                const visibleCards = document.querySelectorAll('.newsletter-card:not(.hidden)');
+                updateResultsCount(visibleCards.length, year);
+            }, 400);
+        }
+        
+        // Update results count display
+        function updateResultsCount(count, filter) {
+            const resultText = document.getElementById('results-count');
+            if (resultText) {
+                const filterText = filter === 'all' ? 'publications' : `${filter} publications`;
+                resultText.textContent = `Showing ${count} ${filterText}`;
+            }
         }
 
-        // Initialize the filter to 'All Years' on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const allYearsButton = document.querySelector(`.filter-btn[onclick="filterNewsletter('all')"]`);
-            if (allYearsButton) {
-                allYearsButton.classList.add('bg-indigo-600', 'text-white');
-                allYearsButton.classList.remove('text-gray-700', 'hover:bg-white');
+        // Newsletter search functionality
+        function initializeNewsletterSearch() {
+            const searchInput = document.querySelector('#newsletter-search');
+            const searchButton = document.querySelector('#newsletter-search-btn');
+            
+            if (searchInput && searchButton) {
+                // Search on button click
+                searchButton.addEventListener('click', () => {
+                    performNewsletterSearch(searchInput.value.trim());
+                });
+                
+                // Search on Enter key
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        performNewsletterSearch(searchInput.value.trim());
+                    }
+                });
+                
+                // Real-time search (optional - debounced)
+                let searchTimeout;
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        if (e.target.value.trim().length > 2 || e.target.value.trim().length === 0) {
+                            performNewsletterSearch(e.target.value.trim());
+                        }
+                    }, 500);
+                });
             }
-        });
+        }
+        
+        function performNewsletterSearch(query) {
+            const cards = document.querySelectorAll('.newsletter-card');
+            const buttons = document.querySelectorAll('.filter-btn-professional');
+            
+            // Reset filter buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (query === '') {
+                // Show all cards if search is empty
+                buttons[0].classList.add('active'); // "All Publications" button
+                cards.forEach(card => {
+                    card.classList.remove('hidden');
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                });
+                updateResultsCount(cards.length, 'all');
+                return;
+            }
+            
+            const searchTerms = query.toLowerCase().split(' ');
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const cardContent = (
+                    card.textContent || 
+                    card.innerText || 
+                    card.dataset.year || 
+                    ''
+                ).toLowerCase();
+                
+                const matches = searchTerms.every(term => cardContent.includes(term));
+                
+                if (matches) {
+                    card.classList.remove('hidden');
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                    visibleCount++;
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.classList.add('hidden');
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+            
+            updateResultsCount(visibleCount, `search: "${query}"`);
+            
+            // Show no results message if needed
+            showNoResultsMessage(visibleCount === 0, query);
+        }
+        
+        function showNoResultsMessage(show, query) {
+            let noResultsDiv = document.getElementById('no-results-message');
+            
+            if (show && !noResultsDiv) {
+                noResultsDiv = document.createElement('div');
+                noResultsDiv.id = 'no-results-message';
+                noResultsDiv.className = 'col-span-full text-center py-16';
+                noResultsDiv.innerHTML = `
+                    <div class="text-gray-400 mb-4">
+                        <i class="fas fa-search text-6xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">No publications found</h3>
+                    <p class="text-gray-500">No results for "${query}". Try different keywords or browse by year.</p>
+                    <button onclick="clearNewsletterSearch()" class="mt-4 btn-secondary">Clear Search</button>
+                `;
+                document.getElementById('newsletter-grid').appendChild(noResultsDiv);
+            } else if (!show && noResultsDiv) {
+                noResultsDiv.remove();
+            }
+        }
+        
+        function clearNewsletterSearch() {
+            const searchInput = document.querySelector('#newsletter-search');
+            if (searchInput) {
+                searchInput.value = '';
+                performNewsletterSearch('');
+            }
+        }
+        
+        // Enhanced load more newsletters functionality
+        let isLoadingMore = false;
+        const additionalNewsletters = [
+            { year: '2020', title: 'March 2020', description: 'Pre-pandemic campus life and early challenges', volume: 'Vol. 11, Issue 3', pages: '16 Pages', gradient: 'from-indigo-400 to-purple-500' },
+            { year: '2019', title: 'September 2019', description: 'Infrastructure development and new programs launch', volume: 'Vol. 10, Issue 9', pages: '20 Pages', gradient: 'from-green-400 to-teal-500' },
+            { year: '2018', title: 'June 2018', description: 'International collaborations and exchange programs', volume: 'Vol. 9, Issue 6', pages: '24 Pages', gradient: 'from-blue-400 to-indigo-500' }
+        ];
+        
+        function loadMoreNewsletters() {
+            if (isLoadingMore) return;
+            isLoadingMore = true;
+            
+            const button = document.getElementById('load-more-btn');
+            const originalText = button.innerHTML;
+            const grid = document.getElementById('newsletter-grid');
+            
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Add new newsletter cards
+                additionalNewsletters.forEach(newsletter => {
+                    const cardHTML = `
+                        <div class="newsletter-professional newsletter-card" data-year="${newsletter.year}" style="opacity: 0; transform: translateY(20px);">
+                            <div class="bg-gradient-to-br ${newsletter.gradient} p-6 text-white">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h3 class="text-lg font-semibold">${newsletter.title}</h3>
+                                    <i class="fas fa-file-alt text-xl opacity-80"></i>
+                                </div>
+                                <p class="text-sm opacity-90 leading-relaxed">${newsletter.description}</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">${newsletter.volume}</span>
+                                    <span class="text-xs text-gray-500">${newsletter.pages}</span>
+                                </div>
+                                <button class="btn-secondary w-full text-sm">Read Publication</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.insertAdjacentHTML('beforeend', cardHTML);
+                });
+                
+                // Animate new cards
+                setTimeout(() => {
+                    const newCards = grid.querySelectorAll('.newsletter-card[style*="opacity: 0"]');
+                    newCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.transition = 'all 0.6s ease';
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }, 100);
+                
+                button.innerHTML = originalText;
+                button.disabled = false;
+                isLoadingMore = false;
+                
+                // Hide button after loading (simulate no more content)
+                button.style.display = 'none';
+                
+                // Add "End of results" message
+                const endMessage = document.createElement('div');
+                endMessage.className = 'text-center text-gray-500 text-sm mt-8';
+                endMessage.innerHTML = '<i class="fas fa-check-circle mr-2"></i>You\'ve reached the end of our archives';
+                button.parentNode.appendChild(endMessage);
+            }, 1500);
+        }
 
-        // Smooth scrolling for navigation links
+        // Enhanced smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -654,6 +2152,53 @@
             });
         });
 
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all professional cards
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.professional-card, .team-card-professional, .newsletter-professional').forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Initialize newsletter search functionality
+            initializeNewsletterSearch();
+            
+            // Initialize results count
+            const totalCards = document.querySelectorAll('.newsletter-card').length;
+            updateResultsCount(totalCards, 'all');
+            
+            // Add smooth transitions to all newsletter cards
+            document.querySelectorAll('.newsletter-card').forEach(card => {
+                card.style.transition = 'all 0.4s ease';
+                card.style.display = 'block';
+            });
+        });
+
+        // Search functionality
+        document.querySelector('input[placeholder*="Search"]').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch(this.value);
+            }
+        });
+
+        function performSearch(query) {
+            // Implement search logic here
+            console.log('Searching for:', query);
+            // Filter cards based on search query
+            // This would typically involve an API call to backend
+        }
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9812991405482ddf',t:'MTc1ODIxNjkwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
