@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somaiya Voices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Nunito+Sans:wght@300;400;600;700;800&display=swap');
+
+        /* Somaiya Brand Colors (Approximate based on reference) */
+        :root {
+            --somaiya-red: #9d2235; 
+            --somaiya-red-dark: #7a1b29;
+            --off-white: #fcfcfc;
+        }
+
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            color: #333;
+            background-color: var(--off-white);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>') 2 2, auto;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+        }
+
+        .somaiya-bg {
+            background-color: var(--somaiya-red);
+        }
+        
+        .somaiya-text {
+            color: var(--somaiya-red);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--somaiya-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Horizontal scrolling animation for team sections */
+        .scroll-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .scroll-content {
+            display: flex;
+            animation: scroll-horizontal 60s linear infinite;
+            gap: 1rem;
+            transition: transform 0.5s ease;
+        }
+
+        .scroll-content.paused {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll-horizontal {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .scroll-content:hover {
+            animation-play-state: paused;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(157, 34, 53, 0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .nav-button:hover {
+            background: rgba(157, 34, 53, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+
+        .nav-button:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+
+        .team-scroll-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ensure team cards maintain their width in the scrolling container */
+        .team-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        .leadership-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        .dept-head-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        .sub-head-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        .member-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        .crew-card {
+            flex: 0 0 auto;
+            min-width: 200px;
+        }
+
+        /* Add LinkedIn icon to all team cards */
+        .team-card-content::after {
+            content: '';
+            display: block;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .linkedin-icon {
+            display: inline-block;
+            margin-top: 8px;
+            color: #0077b5;
+            transition: color 0.3s ease;
+        }
+
+        .linkedin-icon:hover {
+            color: #005582;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #9d2235;
+            background-color: #f0f0f0;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .modal-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .modal-info h3 {
+            margin: 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .modal-info .role {
+            color: #9d2235;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .modal-info .college {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .modal-description {
+            color: #555;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .team-card {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Newsletter Styles */
+        .issue-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .issue-card:hover {
+            border-color: #9d2235;
+            box-shadow: 0 4px 12px rgba(157, 34, 53, 0.15);
+        }
+
+        .issue-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #9d2235;
+            margin-bottom: 10px;
+        }
+
+        .issue-description {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: #9d2235;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #7a1b29;
+            transform: translateY(-1px);
+        }
+
+        .download-btn i {
+            margin-left: 8px;
+        }
+
+        .year-btn.active {
+            background-color: #9d2235;
+            color: white;
+        }
+
+        .archive-years {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .issue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: #9d2235;
+            border-radius: 2px 0 0 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .issue-card:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header / Navigation -->
+    <header class="bg-black shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                
+                <!-- Logo Area -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img src="voices Logo.png" alt="Somaiya Voices Logo" class="h-16 w-auto">
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-8 items-center">
+                    <a href="#who-we-are" class="text-sm font-bold text-gray-300 hover:text-white nav-link uppercase tracking-wide">
+                        Who We Are
+                    </a>
+                    <a href="#deans-office" class="text-sm font-bold text-gray-300 hover:text-white nav-link uppercase tracking-wide">
+                        From Dean's Office
+                    </a>
+                    <a href="#media-sponsor" class="text-sm font-bold text-gray-300 hover:text-white nav-link uppercase tracking-wide">
+                        Media Partners
+                    </a>
+                    <a href="#meet-team" class="text-sm font-bold text-gray-300 hover:text-white nav-link uppercase tracking-wide">
+                        Meet Our Team
+                    </a>
+                    <a href="#newsletter-archives" class="text-sm font-bold text-gray-300 hover:text-white nav-link uppercase tracking-wide">
+                        Newsletter
+                    </a>
+                    
+                    <!-- Social Icons (as seen in image reference) -->
+                    <div class="flex items-center space-x-3 ml-4 pl-4 border-l border-gray-600">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Mobile menu button -->
+                <div class="flex lg:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-gray-400 hover:text-white focus:outline-none">
+                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Slide out) -->
+        <div id="mobile-menu" class="fixed inset-y-0 right-0 z-50 w-64 bg-white shadow-xl lg:hidden flex flex-col pt-16 px-6">
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-gray-500 hover:text-red-700">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <div class="flex flex-col space-y-6 mt-8">
+                <a href="#who-we-are" class="text-lg font-semibold text-gray-800 hover:text-[#9d2235]">Who We Are</a>
+                <a href="#deans-office" class="text-lg font-semibold text-gray-800 hover:text-[#9d2235]">From Dean's Office & Coordinator</a>
+                <a href="#media-sponsor" class="text-lg font-semibold text-gray-800 hover:text-[#9d2235]">Official Media Partners</a>
+                <a href="#meet-team" class="text-lg font-semibold text-gray-800 hover:text-[#9d2235]">Meet Our Team</a>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-gray-500"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="text-gray-500"><i data-lucide="mail"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gray-900 text-white h-screen">
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- Video Background -->
+            <video class="w-full h-full object-cover opacity-40" autoplay muted loop playsinline>
+                <source src="videoplayback.mp4" type="video/mp4">
+                <!-- Fallback image if video doesn't load -->
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop" alt="University Campus" class="w-full h-full object-cover opacity-30">
+            </video>
+            <!-- Dark overlay for better text readability -->
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+        <div class="relative container mx-auto px-4 text-center">
+        </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section id="who-we-are" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Who We Are</h2>
+                <div class="w-24 h-1 somaiya-bg mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                        Voices, the official student media body of Somaiya, is more than just a platform; it is a reflection of who we are as a community. Every laughter-filled fest, every achievement big or small and every story that often goes unnoticed is something Voices strives to ensure is heard, remembered, and celebrated.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed mb-6">
+                        At its heart, Voices is about people. It is about students who dream big, teachers who inspire, and moments that bring us all closer together. Through newsletters, social media and creative storytelling, we aim to capture not just events, but the emotions, the energy and the spirit that make Somaiya feel like home.
+                    </p>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Our team of writers, designers and creators pours passion into every piece of work because for us, it is not just content, it is connection. Each story we share is a reminder that Somaiya is not just an institution; it is a living, breathing family with countless voices waiting to be heard.
+                    </p>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div class="bg-gray-100 rounded-lg p-2 transform rotate-2 hover:rotate-0 transition duration-300 shadow-lg">
+                        <img src="https://www.somaiya.edu/assets/university/img/history/campus.jpg" alt="Somaiya Campus" class="rounded w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dean's Office Section -->
+    <section id="deans-office" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">From Dean's Office & Coordinator</h2>
+                <div class="w-24 h-1 somaiya-bg mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded shadow-sm hover:shadow-md transition border-t-4 border-[#9d2235]">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4">
+                            <img src="Dr. Urmi Thakkar.jpg" alt="Dr. Urmi Thakkar" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Message from the Dean</h3>
+                            <p class="text-sm text-[#9d2235] font-semibold">Student Welfare</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <i data-lucide="quote" class="text-gray-200 w-12 h-12 absolute -top-2 -left-2 -z-10"></i>
+                        <div id="dean-preview" class="">
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">"At Somaiya Vidyavihar University every student is unique and we ensure that each and every student on our campus gives the best not only to make their future bright but also to be the good citizen of our country and give the best to the society.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">The university is known for its excellent infrastructure for teaching, learning, research and eco-friendly lush green campus..."</p>
+                        </div>
+                        <div id="dean-full" class="hidden">
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">"At Somaiya Vidyavihar University every student is unique and we ensure that each and every student on our campus gives the best not only to make their future bright but also to be the good citizen of our country and give the best to the society.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">The university is known for its excellent infrastructure for teaching, learning, research and eco-friendly lush green campus. Also we have Sports academy with multiple facilities on campus.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">We have passion of creating Education for all the students in a way it's freedom for our country. Our main aim is to give good quality modern education including a strong component of culture, inculcation of values, awareness of the environment, physical activities and physical education. We want our students to get good Quality Education and give flexibility in curriculum to choose things based on their interests.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">Our students on campus have reached heights along with Education in different areas of Sports till International level, launching ISRO Satellite and various start ups reaching multinational companies.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">The office of Dean Students' Welfare works for the holistic and comprehensive development of our students. Here, all the activities are undertaken as a measure to promote ample opportunities to the youth to enhance their skills and talents and give them opportunities at national and international level too. Our aim is that every student has core values of integrity, compassion and respect for others. To unleash the talent of our students, we meticulously plan and promote physical as well as cultural activities round the year which include indoor/ outdoor sports events, youth festivals, clubs, and subject related societies. Besides this, my office also ensures to maintain discipline among our students keeping in view their well-being.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed">At this juncture, I must thank to our visionary Vice Chancellor Prof. Dr. Prof V N Rajsekaran Pillai , who is always keen and determined to help the students in the best possible way."</p>
+                        </div>
+                        <button onclick="toggleDeanContent()" id="dean-toggle" class="mt-4 text-[#9d2235] hover:text-[#7a1b29] font-semibold text-sm transition">Read More</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded shadow-sm hover:shadow-md transition border-t-4 border-[#9d2235]">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden mr-4">
+                            <img src="Priyanka Pic.jpg" alt="Ms. Priyanka Shetty" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Ms. Priyanka Shetty</h3>
+                            <p class="text-sm text-[#9d2235] font-semibold">Assistant Manager – Student Welfare</p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <i data-lucide="quote" class="text-gray-200 w-12 h-12 absolute -top-2 -left-2 -z-10"></i>
+                        <div id="coordinator-preview" class="">
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">"Ms. Priyanka Shetty is a committed student welfare professional with a strong passion for supporting student growth and well-being. An alumna of Somaiya Vidyavihar, she completed both her graduation and post-graduation from the institution..."</p>
+                        </div>
+                        <div id="coordinator-full" class="hidden">
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">"Ms. Priyanka Shetty is a committed student welfare professional with a strong passion for supporting student growth and well-being. An alumna of Somaiya Vidyavihar, she completed both her graduation and post-graduation from the institution, and now proudly serves her alma mater in a key role.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed mb-4">Currently, as Assistant Manager – Student Welfare at Somaiya Vidyavihar, she plays an instrumental role in creating a vibrant and supportive campus environment. From organizing events and student engagement activities to conducting stress management and mental well-being initiatives, Priyanka ensures that students are nurtured both academically and emotionally. She is also actively involved in planning and executing internship fairs and other career development initiatives, helping students prepare for life beyond college.</p>
+                            <p class="text-gray-600 italic text-sm leading-relaxed">Her dedication, warmth, and student-first approach have made her an integral part of many major events and welfare programs across the campus."</p>
+                        </div>
+                        <button onclick="toggleCoordinatorContent()" id="coordinator-toggle" class="mt-4 text-[#9d2235] hover:text-[#7a1b29] font-semibold text-sm transition">Read More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Partner Section -->
+    <section id="media-sponsor" class="py-20 bg-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">We Are Official Media Partner Of</h2>
+            <p class="text-gray-500 mb-12">Proudly partnering with flagship events</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-80">
+                <div class="p-6 grayscale hover:grayscale-0 transition duration-300">
+                    <div class="h-20 w-32 bg-gray-200 flex items-center justify-center rounded text-gray-400 font-bold text-xl">Event 1</div>
+                    <p class="mt-2 font-semibold">Maker Mela</p>
+                </div>
+                <div class="p-6 grayscale hover:grayscale-0 transition duration-300">
+                     <div class="h-20 w-32 bg-gray-200 flex items-center justify-center rounded text-gray-400 font-bold text-xl">Event 2</div>
+                     <p class="mt-2 font-semibold">Symphony</p>
+                </div>
+                <div class="p-6 grayscale hover:grayscale-0 transition duration-300">
+                     <div class="h-20 w-32 bg-gray-200 flex items-center justify-center rounded text-gray-400 font-bold text-xl">Event 3</div>
+                     <p class="mt-2 font-semibold">Skream</p>
+                </div>
+                <div class="p-6 grayscale hover:grayscale-0 transition duration-300">
+                     <div class="h-20 w-32 bg-gray-200 flex items-center justify-center rounded text-gray-400 font-bold text-xl">Event 4</div>
+                     <p class="mt-2 font-semibold">TEDx</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team Section -->
+    <section id="meet-team" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+                <div class="w-24 h-1 somaiya-bg mx-auto"></div>
+            </div>
+
+            <!-- All Team Members in Single Line -->
+            <div class="team-scroll-container">
+                <!-- Navigation Buttons -->
+                <button class="nav-button left" id="scrollLeft">‹</button>
+                <button class="nav-button right" id="scrollRight">›</button>
+                
+                <div class="scroll-container">
+                    <div class="scroll-content" id="teamScroll">
+                        <!-- Chief -->
+                        <div class="leadership-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-[#9d2235] to-[#7a1b29] flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">AK</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Aaysha Khan</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CHIEF</p>
+                                <p class="text-xs text-gray-600">KJSSC</p>
+                                <div class="mt-2 text-center">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Co-Chief -->
+                        <div class="leadership-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-[#9d2235] to-[#7a1b29] flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">PG</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Priyansh Gupta</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CO-CHIEF</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">SC</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Shlok Chauhan</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT & PR HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">NG</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Nirek Ganguly</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">OPERATIONS HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">IJ</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Ishika Jain</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">PG</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Priyansh Gupta</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">KR</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Kaustubh Rewankar</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PHOTO & VIDEO HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                                <div class="mt-2">
+                                    <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                        <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sub-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">SM</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Sweekriti Maheshwari</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT SUB-HEAD</p>
+                                <p class="text-xs text-gray-600">KJSSE</p>
+                            </div>
+                        </div>
+
+                        <div class="sub-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">RN</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Rutwa Nimkar</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PR SUB-HEAD</p>
+                                <p class="text-xs text-gray-600">KJSAC</p>
+                            </div>
+                        </div>
+
+                        <div class="sub-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">MB</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Megh Bame</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA SUB-HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">AM</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Aiza Mistry</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT TEAM</p>
+                                <p class="text-xs text-gray-600">SSHSS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">CD</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Christina Dcunha</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT TEAM</p>
+                                <p class="text-xs text-gray-600">KJSAC</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">PM</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Prachi Mishra</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PR TEAM</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">VB</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Viplav Bhanarkar</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS TEAM</p>
+                                <p class="text-xs text-gray-600">SSHSS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">VR</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Viraj Ravani</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS TEAM</p>
+                                <p class="text-xs text-gray-600">KJSP</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">GI</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Gunjan Israni</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS TEAM</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">NC</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Nitin Choudhary</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PHOTO & VIDEO TEAM</p>
+                                <p class="text-xs text-gray-600">KJSSC</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">VT</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Vidisha Tayade</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA TEAM</p>
+                                <p class="text-xs text-gray-600">SSHSS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">VD</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Vaishnavi Dhotre</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA TEAM</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="member-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">SM</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Shravani Mohide</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">OPERATIONS TEAM</p>
+                                <p class="text-xs text-gray-600">KJSCE</p>
+                            </div>
+                        </div>
+
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">DP</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Dhruvi Patel</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT CREW</p>
+                                <p class="text-xs text-gray-600">SSD</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">KB</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Khushi Brahmbhatt</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS CREW</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">AW</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Afifa Waghu</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PHOTO & VIDEO CREW</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">DP</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Deven Patel</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PHOTO & VIDEO CREW</p>
+                                <p class="text-xs text-gray-600">SK SOMAIYA</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">KS</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Krit Shah</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PHOTO & VIDEO CREW</p>
+                                <p class="text-xs text-gray-600">KJSAC</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">MA</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Mahek Agnihotri</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA CREW</p>
+                                <p class="text-xs text-gray-600">SSHSS</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">DM</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Diksha More</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">SOCIAL MEDIA CREW</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">SC</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Saachi Chunekar</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">PR CREW</p>
+                                <p class="text-xs text-gray-600">SKSCAC</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">TB</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Tanisha Bhagat</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">OPERATIONS CREW</p>
+                                <p class="text-xs text-gray-600">KJSAC</p>
+                            </div>
+                        </div>
+
+                        <div class="crew-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">LC</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Laxman Choudhary</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">OPERATIONS CREW</p>
+                                <p class="text-xs text-gray-600">KJSSC</p>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate cards for seamless loop -->
+                        <div class="leadership-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-[#9d2235] to-[#7a1b29] flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">AK</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Aaysha Khan</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CHIEF</p>
+                                <p class="text-xs text-gray-600">KJSSC</p>
+                            </div>
+                        </div>
+
+                        <div class="leadership-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-[#9d2235] to-[#7a1b29] flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">PG</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Priyansh Gupta</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CO-CHIEF</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">SC</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Shlok Chauhan</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">CONTENT & PR HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">NG</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Nirek Ganguly</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">OPERATIONS HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+
+                        <div class="dept-head-card group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition text-center">
+                            <div class="h-48 overflow-hidden bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+                                <div class="text-white text-4xl font-bold">IJ</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="text-base font-bold text-gray-900">Ishika Jain</h4>
+                                <p class="text-xs text-[#9d2235] font-semibold">GRAPHICS HEAD</p>
+                                <p class="text-xs text-gray-600">SSBAS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Archives Section -->
+    <section id="newsletter-archives" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Newsletter Archives</h2>
+                <p class="text-lg text-gray-600 mb-6">The campus newspaper of Somaiya Vidyavihar and Ayurvihar focuses on a student's opinion by giving them a platform to express themselves, it also helps in developing a distinct identity which helps them excel in their personal and professional life.</p>
+                <div class="w-24 h-1 somaiya-bg mx-auto"></div>
+            </div>
+
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Archive Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Current Issues</h3>
+                        
+                        <div class="mb-6">
+                            <button class="archive-toggle flex items-center justify-between w-full text-left text-lg font-semibold text-gray-800 hover:text-[#9d2235] transition" data-year="2025">
+                                <span>Archives</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 transform transition-transform"></i>
+                            </button>
+                            <div class="archive-years mt-4 space-y-2">
+                                <button class="year-btn block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition" data-year="2025">2025</button>
+                                <button class="year-btn block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition" data-year="2024">2024</button>
+                                <button class="year-btn block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition" data-year="2023">2023</button>
+                                <button class="year-btn block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition" data-year="2022">2022</button>
+                                <button class="year-btn block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition" data-year="2021">2021</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Content -->
+                <div class="lg:col-span-3">
+                    <div id="newsletter-content">
+                        <!-- Volume Header -->
+                        <div class="bg-gray-100 p-6 rounded-lg mb-8">
+                            <h3 id="volume-title" class="text-2xl font-bold text-gray-900">Volume 8 - 2025</h3>
+                            <p class="text-gray-600 mt-2">Latest issues and publications</p>
+                        </div>
+
+                        <!-- Issues Grid -->
+                        <div id="issues-container" class="space-y-6">
+                            <!-- Issue cards will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Black Background with Both Logos -->
+    <footer class="bg-black text-white pt-10 pb-6">
+        <div class="container mx-auto px-4">
+            <!-- Footer Navigation (Horizontal layout with logos) -->
+            <div class="flex flex-col md:flex-row justify-between items-center border-b border-gray-700 pb-8 mb-6">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center gap-6">
+                        <!-- Voices Logo -->
+                        <img src="voices Logo.png" alt="Voices Logo" class="h-12 w-auto">
+                        <!-- Somaiya Vidyavihar Logo -->
+                        <img src="Somaiya_Vidyavihar_logo.svg.png" alt="Somaiya Vidyavihar Logo" class="h-12 w-auto">
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 md:gap-8 text-sm font-semibold text-gray-300">
+                    <a href="#who-we-are" class="hover:text-white transition">Who We Are</a>
+                    <a href="#deans-office" class="hover:text-white transition">Dean's Office</a>
+                    <a href="#media-sponsor" class="hover:text-white transition">Partnerships</a>
+                    <a href="#meet-team" class="hover:text-white transition">Team</a>
+                    <a href="#" class="hover:text-white transition">Contact Us</a>
+                </div>
+            </div>
+
+            <!-- Copyright Line -->
+            <div class="text-center text-xs md:text-sm text-gray-400">
+                <p>&copy; 2025 Somaiya Vidyavihar University. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Scroll reveal animations
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal, .fade-in');
+            
+            reveals.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Staggered animation for team cards
+        function animateTeamCards() {
+            const teamCards = document.querySelectorAll('.team-card, .leadership-card, .dept-head-card, .sub-head-card, .member-card, .crew-card');
+            
+            teamCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.classList.add('animated');
+                }, 100);
+            });
+        }
+
+        // Page load animations
+        window.addEventListener('load', function() {
+            // Trigger initial animations
+            document.body.style.opacity = '1';
+            
+            // Animate hero section
+            setTimeout(() => {
+                const heroElements = document.querySelectorAll('.fade-in, .fade-in-delay-1, .fade-in-delay-2, .fade-in-delay-3');
+                heroElements.forEach(el => el.classList.add('revealed'));
+            }, 200);
+            
+            // Animate team cards
+            setTimeout(animateTeamCards, 1000);
+        });
+
+        // Scroll listener
+        window.addEventListener('scroll', revealOnScroll);
+        
+        // Initial check
+        revealOnScroll();
+
+        // Read More functionality for Dean's message
+        function toggleDeanContent() {
+            const preview = document.getElementById('dean-preview');
+            const full = document.getElementById('dean-full');
+            const button = document.getElementById('dean-toggle');
+            
+            if (preview.classList.contains('hidden')) {
+                preview.classList.remove('hidden');
+                full.classList.add('hidden');
+                button.textContent = 'Read More';
+            } else {
+                preview.classList.add('hidden');
+                full.classList.remove('hidden');
+                button.textContent = 'Read Less';
+            }
+        }
+
+        // Read More functionality for Coordinator's message
+        function toggleCoordinatorContent() {
+            const preview = document.getElementById('coordinator-preview');
+            const full = document.getElementById('coordinator-full');
+            const button = document.getElementById('coordinator-toggle');
+            
+            if (preview.classList.contains('hidden')) {
+                preview.classList.remove('hidden');
+                full.classList.add('hidden');
+                button.textContent = 'Read More';
+            } else {
+                preview.classList.add('hidden');
+                full.classList.remove('hidden');
+                button.textContent = 'Read Less';
+            }
+        }
+
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu-btn');
+        const links = menu.querySelectorAll('a');
+
+        function toggleMenu() {
+            menu.classList.toggle('open');
+            // Toggle body scroll
+            document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+        }
+
+        btn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+
+        // Team scroll navigation - Improved version
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add LinkedIn icons to all team cards
+            function addLinkedInIcons() {
+                const teamCards = document.querySelectorAll('.leadership-card, .dept-head-card, .sub-head-card, .member-card, .crew-card');
+                
+                teamCards.forEach(card => {
+                    const cardContent = card.querySelector('.p-4');
+                    
+                    // Check if LinkedIn icon already exists
+                    if (cardContent && !cardContent.querySelector('[data-lucide="linkedin"]')) {
+                        const linkedinDiv = document.createElement('div');
+                        linkedinDiv.className = 'mt-2 text-center';
+                        linkedinDiv.innerHTML = `
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                            </a>
+                        `;
+                        cardContent.appendChild(linkedinDiv);
+                    }
+                });
+                
+                // Re-initialize Lucide icons for new icons
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            }
+            
+            // Add icons after a short delay to ensure DOM is ready
+            setTimeout(addLinkedInIcons, 100);
+
+            let currentPosition = 0;
+            let isManualControl = false;
+            const teamScroll = document.getElementById('teamScroll');
+            const scrollLeftBtn = document.getElementById('scrollLeft');
+            const scrollRightBtn = document.getElementById('scrollRight');
+            const cardWidth = 220;
+            const scrollStep = cardWidth * 2; // Scroll 2 cards at a time
+            const totalCards = document.querySelectorAll('.leadership-card, .dept-head-card, .sub-head-card, .member-card, .crew-card').length;
+            // Remove restrictive limit - allow scrolling through more content
+            const maxScroll = -(totalCards * cardWidth * 0.8); // Allow scrolling through 80% of content
+            
+            console.log('Navigation initialized', { totalCards, maxScroll, cardWidth });
+            
+            function updateScrollPosition() {
+                if (teamScroll) {
+                    teamScroll.style.transform = `translateX(${currentPosition}px)`;
+                    teamScroll.style.animation = 'none';
+                    isManualControl = true;
+                    console.log('Updated position:', currentPosition);
+                }
+            }
+
+            function resumeAnimation() {
+                if (teamScroll && isManualControl) {
+                    teamScroll.style.transform = '';
+                    teamScroll.style.animation = 'scroll-horizontal 60s linear infinite';
+                    currentPosition = 0;
+                    isManualControl = false;
+                    console.log('Resumed animation');
+                }
+            }
+
+            // Left button click handler
+            if (scrollLeftBtn) {
+                scrollLeftBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Left button clicked');
+                    
+                    currentPosition = Math.min(currentPosition + scrollStep, 0);
+                    updateScrollPosition();
+                    resetInactivityTimer();
+                });
+            }
+
+            // Right button click handler  
+            if (scrollRightBtn) {
+                scrollRightBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Right button clicked, current:', currentPosition);
+                    
+                    // Move to the next position
+                    const newPosition = currentPosition - scrollStep;
+                    
+                    // If we're still within reasonable bounds, continue scrolling
+                    if (newPosition >= maxScroll) {
+                        currentPosition = newPosition;
+                        console.log('Continuing scroll to:', currentPosition);
+                    } else {
+                        // Loop back to the beginning
+                        currentPosition = 0;
+                        console.log('Looped back to start');
+                    }
+                    
+                    updateScrollPosition();
+                    resetInactivityTimer();
+                });
+            }
+
+            // Resume auto-scroll after 5 seconds of inactivity
+            let inactivityTimer;
+            function resetInactivityTimer() {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = setTimeout(resumeAnimation, 5000);
+            }
+
+            // Pause on hover
+            if (teamScroll) {
+                teamScroll.addEventListener('mouseenter', function() {
+                    if (!isManualControl) {
+                        teamScroll.style.animationPlayState = 'paused';
+                    }
+                });
+                
+                teamScroll.addEventListener('mouseleave', function() {
+                    if (!isManualControl) {
+                        teamScroll.style.animationPlayState = 'running';
+                    }
+                });
+            }
+        });
+
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                if(menu.classList.contains('open')) toggleMenu();
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+    <!-- Modal for Team Member Details -->
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <div class="modal-header">
+                <div id="modalAvatar" class="modal-avatar"></div>
+                <div class="modal-info">
+                    <h3 id="modalName"></h3>
+                    <div id="modalRole" class="role"></div>
+                    <div id="modalCollege" class="college"></div>
+                </div>
+            </div>
+            <div id="modalDescription" class="modal-description"></div>
+        </div>
+    </div>
+
+    <script>
+        // Team member data with descriptions
+        const teamMembers = {
+            'AK': {
+                name: 'Aaysha Khan',
+                role: 'CHIEF',
+                college: 'KJSSC',
+                description: 'As the Chief of Voices, Aaysha leads the team with passion and vision. She oversees all operations and ensures that every story told reflects the true spirit of Somaiya. Her leadership style combines strategic thinking with a deep understanding of student life, making her an inspiring figure for the entire team.',
+                bgColor: 'linear-gradient(135deg, #9d2235, #7a1b29)'
+            },
+            'PG': {
+                name: 'Priyansh Gupta',
+                role: 'CO-CHIEF',
+                college: 'SSBAS',
+                description: 'Priyansh serves as the Co-Chief and Social Media Head, bringing innovative ideas and creative strategies to amplify Voices\' reach. His expertise in digital marketing and content strategy helps the team connect with students across all platforms effectively.',
+                bgColor: 'linear-gradient(135deg, #9d2235, #7a1b29)'
+            },
+            'SC': {
+                name: 'Shlok Chauhan',
+                role: 'CONTENT & PR HEAD',
+                college: 'SSBAS',
+                description: 'Shlok heads the Content and PR department, crafting compelling narratives that capture the essence of campus life. His writing expertise and public relations skills ensure that Voices maintains strong relationships with students, faculty, and external partners.',
+                bgColor: 'linear-gradient(135deg, #6b7280, #374151)'
+            },
+            'NG': {
+                name: 'Nirek Ganguly',
+                role: 'OPERATIONS HEAD',
+                college: 'SSBAS',
+                description: 'Nirek manages all operational aspects of Voices, ensuring smooth coordination between different teams and departments. His organizational skills and attention to detail keep the team functioning efficiently while maintaining high standards.',
+                bgColor: 'linear-gradient(135deg, #6b7280, #374151)'
+            },
+            'IJ': {
+                name: 'Ishika Jain',
+                role: 'GRAPHICS HEAD',
+                college: 'SSBAS',
+                description: 'Ishika leads the visual storytelling aspect of Voices through her exceptional graphic design skills. She creates eye-catching visuals that complement our written content and helps establish a consistent brand identity across all platforms.',
+                bgColor: 'linear-gradient(135deg, #6b7280, #374151)'
+            },
+            'KR': {
+                name: 'Kaustubh Rewankar',
+                role: 'PHOTO & VIDEO HEAD',
+                college: 'SSBAS',
+                description: 'Kaustubh captures the dynamic energy of campus life through his photography and videography. His technical expertise and creative eye help document memorable moments and events, bringing visual stories to life.',
+                bgColor: 'linear-gradient(135deg, #6b7280, #374151)'
+            },
+            'SM': {
+                name: 'Sweekriti Maheshwari',
+                role: 'CONTENT SUB-HEAD',
+                college: 'KJSSE',
+                description: 'Sweekriti supports the content team with her excellent writing skills and creative thinking. She helps develop engaging content that resonates with the student community and maintains the quality standards of Voices publications.',
+                bgColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)'
+            },
+            'RN': {
+                name: 'Rutwa Nimkar',
+                role: 'PR SUB-HEAD',
+                college: 'KJSAC',
+                description: 'Rutwa assists in building and maintaining relationships with various stakeholders. Her communication skills and networking abilities help expand Voices\' reach and establish meaningful partnerships within the campus community.',
+                bgColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)'
+            },
+            'MB': {
+                name: 'Megh Bame',
+                role: 'SOCIAL MEDIA SUB-HEAD',
+                college: 'SSBAS',
+                description: 'Megh works closely with the social media team to create engaging online content and manage digital presence. His understanding of social media trends helps keep Voices relevant and connected with the student audience.',
+                bgColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)'
+            },
+            'AM': {
+                name: 'Aiza Mistry',
+                role: 'CONTENT TEAM',
+                college: 'SSHSS',
+                description: 'Aiza contributes to the content team with her creative writing abilities and fresh perspectives. She helps research and develop stories that highlight the diverse experiences and achievements within the Somaiya community.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'CD': {
+                name: 'Christina Dcunha',
+                role: 'CONTENT TEAM',
+                college: 'KJSAC',
+                description: 'Christina brings her storytelling skills to the content team, helping craft narratives that celebrate student achievements and campus events. Her attention to detail ensures high-quality written content across all publications.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'PM': {
+                name: 'Prachi Mishra',
+                role: 'PR TEAM',
+                college: 'SSBAS',
+                description: 'Prachi supports public relations efforts by helping coordinate events and manage communications. Her interpersonal skills and dedication contribute to maintaining Voices\' positive reputation and strong community relationships.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'VB': {
+                name: 'Viplav Bhanarkar',
+                role: 'GRAPHICS TEAM',
+                college: 'SSHSS',
+                description: 'Viplav supports the graphics team with his design skills and creative vision. He helps create visual content that enhances storytelling and maintains the professional aesthetic that Voices is known for.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'VR': {
+                name: 'Viraj Ravani',
+                role: 'GRAPHICS TEAM',
+                college: 'KJSP',
+                description: 'Viraj contributes to the visual identity of Voices through his graphic design work. His creativity and technical skills help produce engaging visual content that complements written articles and social media posts.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'GI': {
+                name: 'Gunjan Israni',
+                role: 'GRAPHICS TEAM',
+                college: 'SSBAS',
+                description: 'Gunjan brings artistic flair to the graphics team, creating visually appealing designs that capture attention and convey messages effectively. Her work helps establish a strong visual presence for Voices across all platforms.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'NC': {
+                name: 'Nitin Choudhary',
+                role: 'PHOTO & VIDEO TEAM',
+                college: 'KJSSC',
+                description: 'Nitin captures important campus moments through his photography and videography skills. His work helps document the vibrant life at Somaiya and creates lasting memories for the entire community.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'VT': {
+                name: 'Vidisha Tayade',
+                role: 'SOCIAL MEDIA TEAM',
+                college: 'SSHSS',
+                description: 'Vidisha manages social media content and engagement, helping Voices connect with students across digital platforms. Her understanding of online trends and audience preferences keeps the content fresh and relevant.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'VD': {
+                name: 'Vaishnavi Dhotre',
+                role: 'SOCIAL MEDIA TEAM',
+                college: 'SSBAS',
+                description: 'Vaishnavi supports social media efforts with her content creation skills and digital marketing knowledge. She helps maintain consistent online presence and engages with the student community effectively.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'SM2': {
+                name: 'Shravani Mohide',
+                role: 'OPERATIONS TEAM',
+                college: 'KJSCE',
+                description: 'Shravani assists in operational coordination and ensures smooth execution of team activities. Her organizational skills and reliability make her an essential part of the operations team.',
+                bgColor: 'linear-gradient(135deg, #10b981, #047857)'
+            },
+            'DP': {
+                name: 'Dhruvi Patel',
+                role: 'CONTENT CREW',
+                college: 'SSD',
+                description: 'Dhruvi is a budding content creator who brings fresh ideas and enthusiasm to the team. As part of the content crew, she helps with research, writing, and developing new story concepts for future publications.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'KB': {
+                name: 'Khushi Brahmbhatt',
+                role: 'GRAPHICS CREW',
+                college: 'SSBAS',
+                description: 'Khushi supports the graphics team with her design talents and creative thinking. She assists in creating visual content and learning advanced design techniques to contribute to Voices\' visual storytelling.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'AW': {
+                name: 'Afifa Waghu',
+                role: 'PHOTO & VIDEO CREW',
+                college: 'SSBAS',
+                description: 'Afifa is developing her skills in photography and videography while contributing to documenting campus events. Her keen eye for detail and willingness to learn make her a valuable addition to the multimedia team.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'DP2': {
+                name: 'Deven Patel',
+                role: 'PHOTO & VIDEO CREW',
+                college: 'SK SOMAIYA',
+                description: 'Deven assists the photo and video team with capturing campus life and events. His technical interest and creative perspective help document the diverse activities happening across the Somaiya community.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'KS': {
+                name: 'Krit Shah',
+                role: 'PHOTO & VIDEO CREW',
+                college: 'KJSAC',
+                description: 'Krit supports multimedia content creation with his photography and video skills. He helps capture important moments and creates visual content that tells the story of student life at Somaiya.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'MA': {
+                name: 'Mahek Agnihotri',
+                role: 'SOCIAL MEDIA CREW',
+                college: 'SSHSS',
+                description: 'Mahek assists with social media content and community engagement. She helps create posts, manage interactions, and ensures that Voices maintains an active and engaging online presence.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'DM': {
+                name: 'Diksha More',
+                role: 'SOCIAL MEDIA CREW',
+                college: 'SSBAS',
+                description: 'Diksha supports the social media team with content creation and online engagement strategies. Her understanding of digital trends helps keep Voices connected with the student audience across platforms.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'SC2': {
+                name: 'Saachi Chunekar',
+                role: 'PR CREW',
+                college: 'SKSCAC',
+                description: 'Saachi assists the PR team with communication and relationship building activities. She helps coordinate events and maintain positive relationships within the campus community.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'TB': {
+                name: 'Tanisha Bhagat',
+                role: 'OPERATIONS CREW',
+                college: 'KJSAC',
+                description: 'Tanisha supports operational activities and helps with coordination of team events and meetings. Her organizational abilities and attention to detail contribute to the smooth functioning of Voices.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            },
+            'LC': {
+                name: 'Laxman Choudhary',
+                role: 'OPERATIONS CREW',
+                college: 'KJSSC',
+                description: 'Laxman assists with operational coordination and helps ensure that all team activities run smoothly. His reliability and dedication make him an important part of the operations support team.',
+                bgColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)'
+            }
+        };
+
+        // Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('teamModal');
+            const closeBtn = document.getElementById('closeModal');
+            const modalName = document.getElementById('modalName');
+            const modalRole = document.getElementById('modalRole');
+            const modalCollege = document.getElementById('modalCollege');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalAvatar = document.getElementById('modalAvatar');
+
+            // Add click listeners to all team cards
+            function addCardListeners() {
+                const teamCards = document.querySelectorAll('.leadership-card, .dept-head-card, .sub-head-card, .member-card, .crew-card');
+                
+                teamCards.forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Extract initials from the card
+                        const avatarDiv = card.querySelector('.h-48 div');
+                        if (avatarDiv) {
+                            const initials = avatarDiv.textContent.trim();
+                            let memberData = teamMembers[initials];
+                            
+                            // Handle duplicate names with different keys
+                            if (!memberData && initials === 'SM') {
+                                const roleName = card.querySelector('.p-4 .text-xs.text-\[\#9d2235\]');
+                                if (roleName && roleName.textContent.includes('OPERATIONS')) {
+                                    memberData = teamMembers['SM2'];
+                                } else {
+                                    memberData = teamMembers['SM'];
+                                }
+                            } else if (!memberData && initials === 'DP') {
+                                const collegeName = card.querySelector('.p-4 .text-xs.text-gray-600');
+                                if (collegeName && collegeName.textContent.includes('SK SOMAIYA')) {
+                                    memberData = teamMembers['DP2'];
+                                } else {
+                                    memberData = teamMembers['DP'];
+                                }
+                            } else if (!memberData && initials === 'SC') {
+                                const roleName = card.querySelector('.p-4 .text-xs.text-\[\#9d2235\]');
+                                if (roleName && roleName.textContent.includes('PR CREW')) {
+                                    memberData = teamMembers['SC2'];
+                                } else {
+                                    memberData = teamMembers['SC'];
+                                }
+                            }
+                            
+                            if (memberData) {
+                                // Populate modal with member data
+                                modalName.textContent = memberData.name;
+                                modalRole.textContent = memberData.role;
+                                modalCollege.textContent = memberData.college;
+                                modalDescription.textContent = memberData.description;
+                                modalAvatar.textContent = initials;
+                                modalAvatar.style.background = memberData.bgColor;
+                                
+                                // Show modal
+                                modal.classList.add('active');
+                                document.body.style.overflow = 'hidden';
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Close modal functionality
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Close modal with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // Initialize card listeners
+            addCardListeners();
+        });
+
+        // Newsletter functionality
+        const newsletterData = {
+            2025: {
+                volume: 8,
+                issues: [
+                    {
+                        number: 6,
+                        title: "Issue 6",
+                        description: "Highlights the annual fest celebrations, student achievements in international competitions, and features on sustainable campus initiatives. Also includes interviews with distinguished alumni and upcoming event announcements.",
+                        month: "November",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 5,
+                        title: "Issue 5",
+                        description: "Showcases the cultural week celebrations, research publications by faculty, and student startup success stories. Features the inter-college sports tournament and scholarship opportunities.",
+                        month: "October",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 4,
+                        title: "Issue 4",
+                        description: "Covers the freshers' orientation, new faculty introductions, and campus infrastructure updates. Includes student perspectives on online learning and career guidance articles.",
+                        month: "September",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 3,
+                        title: "Issue 3",
+                        description: "Features summer internship experiences, research paper publications, and industry collaboration announcements. Highlights student volunteer work and community service initiatives.",
+                        month: "August",
+                        downloadLink: "#"
+                    }
+                ]
+            },
+            2024: {
+                volume: 7,
+                issues: [
+                    {
+                        number: 8,
+                        title: "Issue 8",
+                        description: "Year-end special featuring graduating class achievements, annual awards ceremony, and retrospective on major campus events. Includes alumni success stories and future campus development plans.",
+                        month: "December",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 7,
+                        title: "Issue 7",
+                        description: "Covers the annual tech fest, coding competitions, and innovation showcases. Features student-led startups and industry mentorship programs.",
+                        month: "November",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 6,
+                        title: "Issue 6",
+                        description: "Highlights Humans of Somaiya, a section where students around the campus share their stories. Also highlights the international colloquium where the journey of 33 students around the globe who are on campus as a part of the exchange program.",
+                        month: "October",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 5,
+                        title: "Issue 5",
+                        description: "Features the cultural diversity celebrations, international student experiences, and cross-cultural learning initiatives. Includes study abroad opportunities and global partnership announcements.",
+                        month: "September",
+                        downloadLink: "#"
+                    }
+                ]
+            },
+            2023: {
+                volume: 6,
+                issues: [
+                    {
+                        number: 6,
+                        title: "Issue 6",
+                        description: "Special edition covering the university's milestone achievements, new course offerings, and campus sustainability projects. Features prominent guest lectures and research breakthroughs.",
+                        month: "December",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 5,
+                        title: "Issue 5",
+                        description: "Showcases student research projects, faculty publications, and industry partnerships. Includes career fair highlights and placement success stories.",
+                        month: "November",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 4,
+                        title: "Issue 4",
+                        description: "Covers the sports week events, fitness initiatives, and wellness programs. Features student health awareness campaigns and mental health resources.",
+                        month: "October",
+                        downloadLink: "#"
+                    }
+                ]
+            },
+            2022: {
+                volume: 5,
+                issues: [
+                    {
+                        number: 4,
+                        title: "Issue 4",
+                        description: "Focuses on post-pandemic campus life, hybrid learning experiences, and community rebuilding efforts. Includes student resilience stories and academic adaptations.",
+                        month: "December",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 3,
+                        title: "Issue 3",
+                        description: "Highlights digital transformation in education, online event successes, and virtual collaboration tools. Features student innovation during challenging times.",
+                        month: "October",
+                        downloadLink: "#"
+                    }
+                ]
+            },
+            2021: {
+                volume: 4,
+                issues: [
+                    {
+                        number: 3,
+                        title: "Issue 3",
+                        description: "Special pandemic edition covering remote learning experiences, virtual events, and maintaining campus community spirit during challenging times. Features student support initiatives.",
+                        month: "November",
+                        downloadLink: "#"
+                    },
+                    {
+                        number: 2,
+                        title: "Issue 2",
+                        description: "Covers the transition to online learning, digital literacy programs, and virtual campus tours. Includes student mental health and wellness resources.",
+                        month: "August",
+                        downloadLink: "#"
+                    }
+                ]
+            }
+        };
+
+        // Newsletter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearButtons = document.querySelectorAll('.year-btn');
+            const issuesContainer = document.getElementById('issues-container');
+            const volumeTitle = document.getElementById('volume-title');
+            let currentYear = 2025;
+
+            // Function to render issues for a specific year
+            function renderIssues(year) {
+                const data = newsletterData[year];
+                if (!data) return;
+
+                volumeTitle.textContent = `Volume ${data.volume} - ${year}`;
+                issuesContainer.innerHTML = '';
+
+                data.issues.forEach(issue => {
+                    const issueCard = document.createElement('div');
+                    issueCard.className = 'issue-card';
+                    issueCard.innerHTML = `
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="issue-number">${issue.title}</div>
+                                <div class="issue-description">${issue.description}</div>
+                                <div class="text-sm text-gray-500 mb-3">${issue.month} ${year}</div>
+                            </div>
+                            <div class="flex items-center ml-4">
+                                <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="${issue.downloadLink}" class="download-btn">
+                                Download PDF
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    `;
+                    issuesContainer.appendChild(issueCard);
+                });
+
+                // Re-initialize Lucide icons
+                if (window.lucide) {
+                    lucide.createIcons();
+                }
+            }
+
+            // Year button click handlers
+            yearButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const year = parseInt(this.dataset.year);
+                    
+                    // Update active state
+                    yearButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Render issues for selected year
+                    currentYear = year;
+                    renderIssues(year);
+                });
+            });
+
+            // Archive toggle functionality
+            const archiveToggle = document.querySelector('.archive-toggle');
+            const archiveYears = document.querySelector('.archive-years');
+            
+            if (archiveToggle) {
+                archiveToggle.addEventListener('click', function() {
+                    const chevron = this.querySelector('[data-lucide="chevron-down"]');
+                    const isExpanded = archiveYears.style.display !== 'none';
+                    
+                    if (isExpanded) {
+                        archiveYears.style.display = 'none';
+                        chevron.style.transform = 'rotate(0deg)';
+                    } else {
+                        archiveYears.style.display = 'block';
+                        chevron.style.transform = 'rotate(180deg)';
+                    }
+                });
+            }
+
+            // Initialize with current year
+            const currentYearBtn = document.querySelector(`[data-year="${currentYear}"]`);
+            if (currentYearBtn) {
+                currentYearBtn.classList.add('active');
+            }
+            renderIssues(currentYear);
+        });
+    </script>
+</body>
+</html>
